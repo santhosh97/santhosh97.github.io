@@ -1,0 +1,3752 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="en"><div id="twoseven-scripts" data-info="Scripts added by TwoSeven extension" style="display: none !important; position: static !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important;"><script type="text/javascript" id="__tmpScript-26634235" data-added-by-two-seven="1">(function() {
+    window.twoseven = {};
+  })();</script><script type="text/javascript" id="__tmpScript-136967636" data-added-by-two-seven="1">(function() {
+    window.twoseven.waitForDOMNode = async function waitForDOMNode(e,t=document){e=e||{};const{type:n,value:o}=e;if(!n||!o)throw new Error("Must specify identifier");let s=o;switch(n){case"tag":s=o.toUpperCase()}if("check"!==n){const e=await i({type:"selector",value:s},[],t);if(e)return new Promise(t=>t(e))}async function i({type:e,value:t},n,o){let s;switch(e){case"tag":s=n.find(e=>e.tagName===t);break;case"selector":s=o.querySelector(t);break;case"check":for(const e of n){if(await t(e))return e}}return s}return new Promise((e,o)=>{const r=new MutationObserver(async o=>{for(const a of o)if("childList"===a.type){const o=Array.from(a.addedNodes),c=await i({type:n,value:s},o,t);if(c)return r.disconnect(),e(c)}});r.observe(t,{childList:!0,subtree:!0})})};
+  })();</script><script type="text/javascript" id="__tmpScript-280959651" data-added-by-two-seven="1">(function() {
+    
+  window.twoseven.reportError = function reportError(e,t,n){"string"==typeof(n=n||{})&&(n={message:n});const{message:o,stack:s}=t;Object.assign(n,{tag:e,error:{message:o,stack:s}}),window.tsExtGetPostToParent()({name:name,tag:e,action:"report-error",json:n}),console.error(JSON.stringify(n.error))}
+;
+  })();</script><script type="text/javascript" id="__tmpScript-864101854" data-added-by-two-seven="1">(function() {
+    
+  window.twosevenHmsToSecondsOnly = function(str) {
+      var p = str.split(':'),
+          s = 0, m = 1;
+
+      while (p.length > 0) {
+          s += m * parseInt(p.pop(), 10);
+          m *= 60;
+      }
+
+      return s;
+  }
+;
+  })();</script><script type="text/javascript" id="__tmpScript-808961312" data-added-by-two-seven="1">(function() {
+    window.twosevenExtLog = function twosevenExtLog(e,o,c){o||(o=e,e=void 0);let n=c||"black";if(c)switch(c){case"success":n="Green";break;case"info":n="DodgerBlue";break;case"error":n="Red";break;case"warning":n="Orange";break;default:n=c}e?console.log("%c"+e+": "+o,`color:${n}`):console.log("%c"+o,`color:${n}`)};
+  })();</script><script type="text/javascript" id="__tmpScript-630596363" data-added-by-two-seven="1">(function() {
+    
+  document.twosevenGET = function(url, callback) {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+        if (xmlhttp.status == 200) {
+          callback(null, xmlhttp.responseText);
+        } else {
+          callback('something else other than 200 was returned', '');
+        }
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  };
+;
+  })();</script><script type="text/javascript" id="__tmpScript-112498456" data-added-by-two-seven="1">(function() {
+    
+  window.triggerEvent = function(e,t,n,o=!1){let s;o?(n&&"string"!=typeof n&&(n=JSON.stringify(n)),s=n):s={data:n},window.twosevenScriptsDiv&&n&&"object"==typeof n&&(console.warn(`WARNING: Attempting to send an object via event.detail from CS->Page does not work on Firefox: ${JSON.stringify(n)}`),console.error((new Error).stack));var i=new CustomEvent(t,{bubbles:!0,composed:!0,detail:s});e.dispatchEvent(i)}
+;
+  })();</script><script type="text/javascript" id="__tmpScript-326891413" data-added-by-two-seven="1">(function() {
+    window.twoseven.postTo = async function postTo(e,t,n=!1){let o;return t.name=t.name||name,o=n?new Promise(e=>{const n=`ack-${t.action}-${1e9*Math.random()|0}`;t.ack={event:n};window.debug&&["play","pause","currentTime"].some(e=>t.action.includes(e)),window.addEventListener("message",function t({data:o={}}){o.action===n&&(window.removeEventListener("message",t),e(o.json))})}):new Promise(e=>e()),e.postMessage(t,"*"),o};
+  })();</script><script type="text/javascript" id="__tmpScript-680689439" data-added-by-two-seven="1">(function() {
+    window.tsExtGetPostTo = function tsExtGetPostTo(){return window.twoseven&&window.twoseven.postTo||window.postTo};
+  })();</script><script type="text/javascript" id="__tmpScript-741182714" data-added-by-two-seven="1">(function() {
+    window.tsExtGetPostToParent = function tsExtGetPostToParent(){return window.twoseven&&window.twoseven.postToParent||window.postToParent};
+  })();</script><script type="text/javascript" id="__tmpScript-960901963" data-added-by-two-seven="1">(function() {
+    window.twoseven.postResponse = async function postResponse(e,t){const{source:n,data:{ack:{event:o}}}=e;window.tsExtGetPostTo()(n,{action:o,json:t})};
+  })();</script><script type="text/javascript" id="__tmpScript-825915528" data-added-by-two-seven="1">(function() {
+    window.twoseven.postToParent = async function postToParent(e,t=!1){return window.tsExtGetPostTo()(window.parent,e,t)};
+  })();</script><script type="text/javascript" id="__tmpScript-697139451" data-added-by-two-seven="1">(function() {
+    window.twoseven.postToTop = async function postToTop(e,t=!1){return window.tsExtGetPostTo()(window.top,e,t)};
+  })();</script><script type="text/javascript" id="__tmpScript-9258912" data-added-by-two-seven="1">(function() {
+    
+  window.twoseven.getFromStorage = e=>new Promise((t,n)=>{const o="get-from-storage-"+(1e9*Math.random()|0);window.addEventListener(o,e=>{window.removeEventListener(o,this);const{detail:{data:{value:n}}}=e;t(n)}),triggerEvent(window,"get-from-storage",{key:e,evt:o})})
+  window.twoseven.saveToStorage = e=>{triggerEvent(window,"save-to-storage",e)}
+;
+  })();</script><script type="text/javascript" id="__tmpScript-885525503" data-added-by-two-seven="1">(function() {
+    
+  function attachHistoryListeners(){var e=history.pushState;history.pushState=function(t,n,o){return"function"==typeof history.onpushstate&&history.onpushstate({state:t}),triggerEvent(window,"pushstate",{uri:o}),e.apply(history,arguments)};var t=history.replaceState;history.replaceState=function(e){return"function"==typeof history.onreplacestate&&history.onreplacestate({state:e}),t.apply(history,arguments)}}
+  attachHistoryListeners()
+;
+  })();</script><script type="text/javascript" id="__tmpScript-228348952" data-added-by-two-seven="1">(function() {
+    window.twoseven.once = function once(e,t,n){e.addEventListener(t,function o(s){e.removeEventListener(t,o),n(s)})};
+  })();</script><script type="text/javascript" id="__tmpScript-649369179" data-added-by-two-seven="1">(function() {
+    
+  window.twoseven.isOnTwoSevenTab = async () => {
+    const result = await window.twoseven.postTo(window, { action: 'is-on-twoseven-tab' }, true)
+    return result
+  }
+;
+  })();</script><script type="text/javascript" id="__tmpScript-442809811" data-added-by-two-seven="1">(function() {
+    
+  window.twoseven.isPaused = async () => {
+    const result = await window.twoseven.postTo(window, { action: 'twoseven:pause-state' }, true)
+    return result
+  }
+;
+  })();</script><script type="text/javascript" id="__tmpScript-719396046" data-added-by-two-seven="1">(function() {
+    
+      const modal = document.querySelector('.twoseven-ext-tab-media-modal')
+      const modalCloseBtn = modal.querySelector('.close')
+      function closeModal () {
+        modal.style.display = 'none'
+        const frame = document.querySelector('#twoseven-ext-tab-media-iframe').contentWindow
+        frame.postMessage({
+          __evt_name: 'modal-hide'
+        }, '*')
+      }
+      modalCloseBtn.onclick = closeModal
+
+      window.onmessage = function (e) {
+        if (e.data.__evt_name === 'modal-hide') {
+          closeModal()
+        }
+      }
+
+      window.twoseven.closeTabMediaModal = closeModal
+
+      window.onclick = function (e) {
+        if (e.target.id === 'twoseven-ext-tab-media-modal' && modal.style.display === 'block') {
+            closeModal()
+        }
+      }
+    ;
+  })();</script></div><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Santhosh Subramanian</title>
+  
+  <meta name="author" content="Santhosh Subramanian">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" type="text/css" href="./Santhosh Subramanian_files/stylesheet.css">
+  <link rel="icon" type="image/png" href="http://127.0.0.1:5500/images/seal_icon.png">
+<link href="chrome-extension://cjdnfmjmdligcpfcekfmenlhiopehjkd/web_resources/modal/modal.css" rel="stylesheet" id="__tmpStyle"><style type="text/css">body.swal2-shown:not(.swal2-no-backdrop) {
+  overflow-y: hidden; }
+
+body.swal2-toast-shown {
+  overflow-y: auto; }
+  body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-icon {
+      margin: 0 0 15px; }
+    body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-buttonswrapper {
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      -ms-flex-item-align: stretch;
+          align-self: stretch;
+      -webkit-box-pack: end;
+          -ms-flex-pack: end;
+              justify-content: flex-end; }
+    body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-loading {
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center; }
+    body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-input {
+      height: 32px;
+      font-size: 14px;
+      margin: 5px auto; }
+  body.swal2-toast-shown > .swal2-container {
+    position: fixed;
+    background-color: transparent; }
+    body.swal2-toast-shown > .swal2-container.swal2-shown {
+      background-color: transparent; }
+    body.swal2-toast-shown > .swal2-container.swal2-top {
+      top: 0;
+      left: 50%;
+      bottom: auto;
+      right: auto;
+      -webkit-transform: translateX(-50%);
+              transform: translateX(-50%); }
+    body.swal2-toast-shown > .swal2-container.swal2-top-right {
+      top: 0;
+      left: auto;
+      bottom: auto;
+      right: 0; }
+    body.swal2-toast-shown > .swal2-container.swal2-top-left {
+      top: 0;
+      left: 0;
+      bottom: auto;
+      right: auto; }
+    body.swal2-toast-shown > .swal2-container.swal2-center-left {
+      top: 50%;
+      left: 0;
+      bottom: auto;
+      right: auto;
+      -webkit-transform: translateY(-50%);
+              transform: translateY(-50%); }
+    body.swal2-toast-shown > .swal2-container.swal2-center {
+      top: 50%;
+      left: 50%;
+      bottom: auto;
+      right: auto;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%); }
+    body.swal2-toast-shown > .swal2-container.swal2-center-right {
+      top: 50%;
+      left: auto;
+      bottom: auto;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+              transform: translateY(-50%); }
+    body.swal2-toast-shown > .swal2-container.swal2-bottom-left {
+      top: auto;
+      left: 0;
+      bottom: 0;
+      right: auto; }
+    body.swal2-toast-shown > .swal2-container.swal2-bottom {
+      top: auto;
+      left: 50%;
+      bottom: 0;
+      right: auto;
+      -webkit-transform: translateX(-50%);
+              transform: translateX(-50%); }
+    body.swal2-toast-shown > .swal2-container.swal2-bottom-right {
+      top: auto;
+      left: auto;
+      bottom: 0;
+      right: 0; }
+
+body.swal2-iosfix {
+  position: fixed;
+  left: 0;
+  right: 0; }
+
+body.swal2-no-backdrop > .swal2-shown {
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  background-color: transparent; }
+  body.swal2-no-backdrop > .swal2-shown > .swal2-modal {
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+  body.swal2-no-backdrop > .swal2-shown.swal2-top {
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); }
+  body.swal2-no-backdrop > .swal2-shown.swal2-top-left {
+    top: 0;
+    left: 0; }
+  body.swal2-no-backdrop > .swal2-shown.swal2-top-right {
+    top: 0;
+    right: 0; }
+  body.swal2-no-backdrop > .swal2-shown.swal2-center {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+  body.swal2-no-backdrop > .swal2-shown.swal2-center-left {
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%); }
+  body.swal2-no-backdrop > .swal2-shown.swal2-center-right {
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%); }
+  body.swal2-no-backdrop > .swal2-shown.swal2-bottom {
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); }
+  body.swal2-no-backdrop > .swal2-shown.swal2-bottom-left {
+    bottom: 0;
+    left: 0; }
+  body.swal2-no-backdrop > .swal2-shown.swal2-bottom-right {
+    bottom: 0;
+    right: 0; }
+
+.swal2-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 1060; }
+  .swal2-container.swal2-top {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start; }
+  .swal2-container.swal2-top-left {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start; }
+  .swal2-container.swal2-top-right {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end; }
+  .swal2-container.swal2-center {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+  .swal2-container.swal2-center-left {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start; }
+  .swal2-container.swal2-center-right {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end; }
+  .swal2-container.swal2-bottom {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end; }
+  .swal2-container.swal2-bottom-left {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start; }
+  .swal2-container.swal2-bottom-right {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end; }
+  .swal2-container.swal2-grow-fullscreen > .swal2-modal {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .swal2-container.swal2-grow-row > .swal2-modal {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .swal2-container.swal2-grow-column {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .swal2-container.swal2-grow-column.swal2-top, .swal2-container.swal2-grow-column.swal2-center, .swal2-container.swal2-grow-column.swal2-bottom {
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+    .swal2-container.swal2-grow-column.swal2-top-left, .swal2-container.swal2-grow-column.swal2-center-left, .swal2-container.swal2-grow-column.swal2-bottom-left {
+      -webkit-box-align: start;
+          -ms-flex-align: start;
+              align-items: flex-start; }
+    .swal2-container.swal2-grow-column.swal2-top-right, .swal2-container.swal2-grow-column.swal2-center-right, .swal2-container.swal2-grow-column.swal2-bottom-right {
+      -webkit-box-align: end;
+          -ms-flex-align: end;
+              align-items: flex-end; }
+    .swal2-container.swal2-grow-column > .swal2-modal {
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      -ms-flex-line-pack: center;
+          align-content: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center; }
+  .swal2-container:not(.swal2-top):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-left):not(.swal2-bottom-right) > .swal2-modal {
+    margin: auto; }
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .swal2-container .swal2-modal {
+      margin: 0 !important; } }
+  .swal2-container.swal2-fade {
+    -webkit-transition: background-color .1s;
+    transition: background-color .1s; }
+  .swal2-container.swal2-shown {
+    background-color: rgba(0, 0, 0, 0.4); }
+
+.swal2-popup {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: none;
+  position: relative;
+  max-width: 100%; }
+  .swal2-popup.swal2-toast {
+    width: 300px;
+    padding: 0 15px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    overflow-y: hidden;
+    -webkit-box-shadow: 0 0 10px #d9d9d9;
+            box-shadow: 0 0 10px #d9d9d9; }
+    .swal2-popup.swal2-toast .swal2-title {
+      max-width: 300px;
+      font-size: 16px;
+      text-align: left; }
+    .swal2-popup.swal2-toast .swal2-content {
+      font-size: 14px;
+      text-align: left; }
+    .swal2-popup.swal2-toast .swal2-icon {
+      width: 32px;
+      height: 32px;
+      margin: 0 15px 0 0; }
+      .swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring {
+        width: 32px;
+        height: 32px; }
+      .swal2-popup.swal2-toast .swal2-icon.swal2-info, .swal2-popup.swal2-toast .swal2-icon.swal2-warning, .swal2-popup.swal2-toast .swal2-icon.swal2-question {
+        font-size: 26px;
+        line-height: 32px; }
+      .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+        top: 14px;
+        width: 22px; }
+        .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='left'] {
+          left: 5px; }
+        .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='right'] {
+          right: 5px; }
+    .swal2-popup.swal2-toast .swal2-buttonswrapper {
+      margin: 0 0 0 5px; }
+    .swal2-popup.swal2-toast .swal2-styled {
+      margin: 0 0 0 5px;
+      padding: 5px 10px; }
+      .swal2-popup.swal2-toast .swal2-styled:focus {
+        -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(50, 100, 150, 0.4);
+                box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(50, 100, 150, 0.4); }
+    .swal2-popup.swal2-toast .swal2-validationerror {
+      width: 100%;
+      margin: 5px -20px; }
+    .swal2-popup.swal2-toast .swal2-success {
+      border-color: #a5dc86; }
+      .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-circular-line'] {
+        border-radius: 50%;
+        position: absolute;
+        width: 32px;
+        height: 64px;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg); }
+        .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-circular-line'][class$='left'] {
+          border-radius: 64px 0 0 64px;
+          top: -4px;
+          left: -15px;
+          -webkit-transform: rotate(-45deg);
+                  transform: rotate(-45deg);
+          -webkit-transform-origin: 32px 32px;
+                  transform-origin: 32px 32px; }
+        .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-circular-line'][class$='right'] {
+          border-radius: 0 64px 64px 0;
+          top: -5px;
+          left: 14px;
+          -webkit-transform-origin: 0 32px;
+                  transform-origin: 0 32px; }
+      .swal2-popup.swal2-toast .swal2-success .swal2-success-ring {
+        width: 32px;
+        height: 32px; }
+      .swal2-popup.swal2-toast .swal2-success .swal2-success-fix {
+        width: 7px;
+        height: 90px;
+        left: 28px;
+        top: 8px; }
+      .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-line'] {
+        height: 5px; }
+        .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-line'][class$='tip'] {
+          width: 12px;
+          left: 3px;
+          top: 18px; }
+        .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-line'][class$='long'] {
+          width: 22px;
+          right: 3px;
+          top: 15px; }
+    .swal2-popup.swal2-toast .swal2-animate-success-line-tip {
+      -webkit-animation: animate-toast-success-tip .75s;
+              animation: animate-toast-success-tip .75s; }
+    .swal2-popup.swal2-toast .swal2-animate-success-line-long {
+      -webkit-animation: animate-toast-success-long .75s;
+              animation: animate-toast-success-long .75s; }
+  .swal2-popup:focus {
+    outline: none; }
+  .swal2-popup.swal2-loading {
+    overflow-y: hidden; }
+  .swal2-popup .swal2-title {
+    color: #595959;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+    margin: 0 0 .4em;
+    padding: 0;
+    display: block;
+    word-wrap: break-word; }
+  .swal2-popup .swal2-buttonswrapper {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-top: 15px; }
+    .swal2-popup .swal2-buttonswrapper:not(.swal2-loading) .swal2-styled[disabled] {
+      opacity: .4;
+      cursor: no-drop; }
+    .swal2-popup .swal2-buttonswrapper.swal2-loading .swal2-styled.swal2-confirm {
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+      border: 4px solid transparent;
+      border-color: transparent;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      margin: 7.5px;
+      vertical-align: top;
+      background-color: transparent !important;
+      color: transparent;
+      cursor: default;
+      border-radius: 100%;
+      -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+              animation: rotate-loading 1.5s linear 0s infinite normal;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none; }
+    .swal2-popup .swal2-buttonswrapper.swal2-loading .swal2-styled.swal2-cancel {
+      margin-left: 30px;
+      margin-right: 30px; }
+    .swal2-popup .swal2-buttonswrapper.swal2-loading :not(.swal2-styled).swal2-confirm::after {
+      display: inline-block;
+      content: '';
+      margin-left: 5px;
+      vertical-align: -1px;
+      height: 15px;
+      width: 15px;
+      border: 3px solid #999999;
+      -webkit-box-shadow: 1px 1px 1px #fff;
+              box-shadow: 1px 1px 1px #fff;
+      border-right-color: transparent;
+      border-radius: 50%;
+      -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+              animation: rotate-loading 1.5s linear 0s infinite normal; }
+  .swal2-popup .swal2-styled {
+    border: 0;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 15px 5px 0;
+    padding: 10px 32px; }
+    .swal2-popup .swal2-styled:focus {
+      outline: none;
+      -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(50, 100, 150, 0.4);
+              box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(50, 100, 150, 0.4); }
+  .swal2-popup .swal2-image {
+    margin: 20px auto;
+    max-width: 100%; }
+  .swal2-popup .swal2-close {
+    background: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 38px;
+    height: 40px;
+    font-size: 36px;
+    line-height: 40px;
+    font-family: serif;
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+    color: #cccccc;
+    -webkit-transition: color .1s ease;
+    transition: color .1s ease; }
+    .swal2-popup .swal2-close:hover {
+      color: #d55; }
+  .swal2-popup > .swal2-input,
+  .swal2-popup > .swal2-file,
+  .swal2-popup > .swal2-textarea,
+  .swal2-popup > .swal2-select,
+  .swal2-popup > .swal2-radio,
+  .swal2-popup > .swal2-checkbox {
+    display: none; }
+  .swal2-popup .swal2-content {
+    font-size: 18px;
+    text-align: center;
+    font-weight: 300;
+    position: relative;
+    float: none;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    color: #545454;
+    word-wrap: break-word; }
+  .swal2-popup .swal2-input,
+  .swal2-popup .swal2-file,
+  .swal2-popup .swal2-textarea,
+  .swal2-popup .swal2-select,
+  .swal2-popup .swal2-radio,
+  .swal2-popup .swal2-checkbox {
+    margin: 20px auto; }
+  .swal2-popup .swal2-input,
+  .swal2-popup .swal2-file,
+  .swal2-popup .swal2-textarea {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    font-size: 18px;
+    border-radius: 3px;
+    border: 1px solid #d9d9d9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+    -webkit-transition: border-color .3s, -webkit-box-shadow .3s;
+    transition: border-color .3s, -webkit-box-shadow .3s;
+    transition: border-color .3s, box-shadow .3s;
+    transition: border-color .3s, box-shadow .3s, -webkit-box-shadow .3s; }
+    .swal2-popup .swal2-input.swal2-inputerror,
+    .swal2-popup .swal2-file.swal2-inputerror,
+    .swal2-popup .swal2-textarea.swal2-inputerror {
+      border-color: #f27474 !important;
+      -webkit-box-shadow: 0 0 2px #f27474 !important;
+              box-shadow: 0 0 2px #f27474 !important; }
+    .swal2-popup .swal2-input:focus,
+    .swal2-popup .swal2-file:focus,
+    .swal2-popup .swal2-textarea:focus {
+      outline: none;
+      border: 1px solid #b4dbed;
+      -webkit-box-shadow: 0 0 3px #c4e6f5;
+              box-shadow: 0 0 3px #c4e6f5; }
+    .swal2-popup .swal2-input::-webkit-input-placeholder,
+    .swal2-popup .swal2-file::-webkit-input-placeholder,
+    .swal2-popup .swal2-textarea::-webkit-input-placeholder {
+      color: #cccccc; }
+    .swal2-popup .swal2-input:-ms-input-placeholder,
+    .swal2-popup .swal2-file:-ms-input-placeholder,
+    .swal2-popup .swal2-textarea:-ms-input-placeholder {
+      color: #cccccc; }
+    .swal2-popup .swal2-input::-ms-input-placeholder,
+    .swal2-popup .swal2-file::-ms-input-placeholder,
+    .swal2-popup .swal2-textarea::-ms-input-placeholder {
+      color: #cccccc; }
+    .swal2-popup .swal2-input::placeholder,
+    .swal2-popup .swal2-file::placeholder,
+    .swal2-popup .swal2-textarea::placeholder {
+      color: #cccccc; }
+  .swal2-popup .swal2-range input {
+    float: left;
+    width: 80%; }
+  .swal2-popup .swal2-range output {
+    float: right;
+    width: 20%;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center; }
+  .swal2-popup .swal2-range input,
+  .swal2-popup .swal2-range output {
+    height: 43px;
+    line-height: 43px;
+    vertical-align: middle;
+    margin: 20px auto;
+    padding: 0; }
+  .swal2-popup .swal2-input {
+    height: 43px;
+    padding: 0 12px; }
+    .swal2-popup .swal2-input[type='number'] {
+      max-width: 150px; }
+  .swal2-popup .swal2-file {
+    font-size: 20px; }
+  .swal2-popup .swal2-textarea {
+    height: 108px;
+    padding: 12px; }
+  .swal2-popup .swal2-select {
+    color: #545454;
+    font-size: inherit;
+    padding: 5px 10px;
+    min-width: 40%;
+    max-width: 100%; }
+  .swal2-popup .swal2-radio {
+    border: 0; }
+    .swal2-popup .swal2-radio label:not(:first-child) {
+      margin-left: 20px; }
+    .swal2-popup .swal2-radio input,
+    .swal2-popup .swal2-radio span {
+      vertical-align: middle; }
+    .swal2-popup .swal2-radio input {
+      margin: 0 3px 0 0; }
+  .swal2-popup .swal2-checkbox {
+    color: #545454; }
+    .swal2-popup .swal2-checkbox input,
+    .swal2-popup .swal2-checkbox span {
+      vertical-align: middle; }
+  .swal2-popup .swal2-validationerror {
+    background-color: #f0f0f0;
+    margin: 0 -20px;
+    overflow: hidden;
+    padding: 10px;
+    color: gray;
+    font-size: 16px;
+    font-weight: 300;
+    display: none; }
+    .swal2-popup .swal2-validationerror::before {
+      content: '!';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ea7d7d;
+      color: #fff;
+      line-height: 24px;
+      text-align: center;
+      margin-right: 10px; }
+
+@supports (-ms-accelerator: true) {
+  .swal2-range input {
+    width: 100% !important; }
+  .swal2-range output {
+    display: none; } }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .swal2-range input {
+    width: 100% !important; }
+  .swal2-range output {
+    display: none; } }
+
+.swal2-icon {
+  width: 80px;
+  height: 80px;
+  border: 4px solid transparent;
+  border-radius: 50%;
+  margin: 20px auto 30px;
+  padding: 0;
+  position: relative;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .swal2-icon.swal2-error {
+    border-color: #f27474; }
+    .swal2-icon.swal2-error .swal2-x-mark {
+      position: relative;
+      display: block; }
+    .swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+      position: absolute;
+      height: 5px;
+      width: 47px;
+      background-color: #f27474;
+      display: block;
+      top: 37px;
+      border-radius: 2px; }
+      .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='left'] {
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+        left: 17px; }
+      .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='right'] {
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+        right: 16px; }
+  .swal2-icon.swal2-warning {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #f8bb86;
+    border-color: #facea8;
+    font-size: 60px;
+    line-height: 80px;
+    text-align: center; }
+  .swal2-icon.swal2-info {
+    font-family: 'Open Sans', sans-serif;
+    color: #3fc3ee;
+    border-color: #9de0f6;
+    font-size: 60px;
+    line-height: 80px;
+    text-align: center; }
+  .swal2-icon.swal2-question {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #87adbd;
+    border-color: #c9dae1;
+    font-size: 60px;
+    line-height: 80px;
+    text-align: center; }
+  .swal2-icon.swal2-success {
+    border-color: #a5dc86; }
+    .swal2-icon.swal2-success [class^='swal2-success-circular-line'] {
+      border-radius: 50%;
+      position: absolute;
+      width: 60px;
+      height: 120px;
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg); }
+      .swal2-icon.swal2-success [class^='swal2-success-circular-line'][class$='left'] {
+        border-radius: 120px 0 0 120px;
+        top: -7px;
+        left: -33px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+        -webkit-transform-origin: 60px 60px;
+                transform-origin: 60px 60px; }
+      .swal2-icon.swal2-success [class^='swal2-success-circular-line'][class$='right'] {
+        border-radius: 0 120px 120px 0;
+        top: -11px;
+        left: 30px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+        -webkit-transform-origin: 0 60px;
+                transform-origin: 0 60px; }
+    .swal2-icon.swal2-success .swal2-success-ring {
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(165, 220, 134, 0.2);
+      border-radius: 50%;
+      -webkit-box-sizing: content-box;
+              box-sizing: content-box;
+      position: absolute;
+      left: -4px;
+      top: -4px;
+      z-index: 2; }
+    .swal2-icon.swal2-success .swal2-success-fix {
+      width: 7px;
+      height: 90px;
+      position: absolute;
+      left: 28px;
+      top: 8px;
+      z-index: 1;
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg); }
+    .swal2-icon.swal2-success [class^='swal2-success-line'] {
+      height: 5px;
+      background-color: #a5dc86;
+      display: block;
+      border-radius: 2px;
+      position: absolute;
+      z-index: 2; }
+      .swal2-icon.swal2-success [class^='swal2-success-line'][class$='tip'] {
+        width: 25px;
+        left: 14px;
+        top: 46px;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg); }
+      .swal2-icon.swal2-success [class^='swal2-success-line'][class$='long'] {
+        width: 47px;
+        right: 8px;
+        top: 38px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg); }
+
+.swal2-progresssteps {
+  font-weight: 600;
+  margin: 0 0 20px;
+  padding: 0; }
+  .swal2-progresssteps li {
+    display: inline-block;
+    position: relative; }
+  .swal2-progresssteps .swal2-progresscircle {
+    background: #3085d6;
+    border-radius: 2em;
+    color: #fff;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    width: 2em;
+    z-index: 20; }
+    .swal2-progresssteps .swal2-progresscircle:first-child {
+      margin-left: 0; }
+    .swal2-progresssteps .swal2-progresscircle:last-child {
+      margin-right: 0; }
+    .swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep {
+      background: #3085d6; }
+      .swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep ~ .swal2-progresscircle {
+        background: #add8e6; }
+      .swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep ~ .swal2-progressline {
+        background: #add8e6; }
+  .swal2-progresssteps .swal2-progressline {
+    background: #3085d6;
+    height: .4em;
+    margin: 0 -1px;
+    z-index: 10; }
+
+[class^='swal2'] {
+  -webkit-tap-highlight-color: transparent; }
+
+@-webkit-keyframes showSweetToast {
+  0% {
+    -webkit-transform: translateY(-10px) rotateZ(2deg);
+            transform: translateY(-10px) rotateZ(2deg);
+    opacity: 0; }
+  33% {
+    -webkit-transform: translateY(0) rotateZ(-2deg);
+            transform: translateY(0) rotateZ(-2deg);
+    opacity: .5; }
+  66% {
+    -webkit-transform: translateY(5px) rotateZ(2deg);
+            transform: translateY(5px) rotateZ(2deg);
+    opacity: .7; }
+  100% {
+    -webkit-transform: translateY(0) rotateZ(0);
+            transform: translateY(0) rotateZ(0);
+    opacity: 1; } }
+
+@keyframes showSweetToast {
+  0% {
+    -webkit-transform: translateY(-10px) rotateZ(2deg);
+            transform: translateY(-10px) rotateZ(2deg);
+    opacity: 0; }
+  33% {
+    -webkit-transform: translateY(0) rotateZ(-2deg);
+            transform: translateY(0) rotateZ(-2deg);
+    opacity: .5; }
+  66% {
+    -webkit-transform: translateY(5px) rotateZ(2deg);
+            transform: translateY(5px) rotateZ(2deg);
+    opacity: .7; }
+  100% {
+    -webkit-transform: translateY(0) rotateZ(0);
+            transform: translateY(0) rotateZ(0);
+    opacity: 1; } }
+
+@-webkit-keyframes hideSweetToast {
+  0% {
+    opacity: 1; }
+  33% {
+    opacity: .5; }
+  100% {
+    -webkit-transform: rotateZ(1deg);
+            transform: rotateZ(1deg);
+    opacity: 0; } }
+
+@keyframes hideSweetToast {
+  0% {
+    opacity: 1; }
+  33% {
+    opacity: .5; }
+  100% {
+    -webkit-transform: rotateZ(1deg);
+            transform: rotateZ(1deg);
+    opacity: 0; } }
+
+@-webkit-keyframes showSweetAlert {
+  0% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); }
+  45% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05); }
+  80% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes showSweetAlert {
+  0% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); }
+  45% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05); }
+  80% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@-webkit-keyframes hideSweetAlert {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    opacity: 0; } }
+
+@keyframes hideSweetAlert {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    opacity: 0; } }
+
+.swal2-show {
+  -webkit-animation: showSweetAlert .3s;
+          animation: showSweetAlert .3s; }
+  .swal2-show.swal2-toast {
+    -webkit-animation: showSweetToast .5s;
+            animation: showSweetToast .5s; }
+  .swal2-show.swal2-noanimation {
+    -webkit-animation: none;
+            animation: none; }
+
+.swal2-hide {
+  -webkit-animation: hideSweetAlert .15s forwards;
+          animation: hideSweetAlert .15s forwards; }
+  .swal2-hide.swal2-toast {
+    -webkit-animation: hideSweetToast .2s forwards;
+            animation: hideSweetToast .2s forwards; }
+  .swal2-hide.swal2-noanimation {
+    -webkit-animation: none;
+            animation: none; }
+
+@-webkit-keyframes animate-success-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px; }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px; }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px; } }
+
+@keyframes animate-success-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px; }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px; }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px; } }
+
+@-webkit-keyframes animate-success-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  84% {
+    width: 55px;
+    right: 0;
+    top: 35px; }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px; } }
+
+@keyframes animate-success-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  84% {
+    width: 55px;
+    right: 0;
+    top: 35px; }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px; } }
+
+@-webkit-keyframes animate-toast-success-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 9px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 9px; }
+  70% {
+    width: 24px;
+    left: -4px;
+    top: 17px; }
+  84% {
+    width: 8px;
+    left: 10px;
+    top: 20px; }
+  100% {
+    width: 12px;
+    left: 3px;
+    top: 18px; } }
+
+@keyframes animate-toast-success-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 9px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 9px; }
+  70% {
+    width: 24px;
+    left: -4px;
+    top: 17px; }
+  84% {
+    width: 8px;
+    left: 10px;
+    top: 20px; }
+  100% {
+    width: 12px;
+    left: 3px;
+    top: 18px; } }
+
+@-webkit-keyframes animate-toast-success-long {
+  0% {
+    width: 0;
+    right: 22px;
+    top: 26px; }
+  65% {
+    width: 0;
+    right: 22px;
+    top: 26px; }
+  84% {
+    width: 26px;
+    right: 0;
+    top: 15px; }
+  100% {
+    width: 22px;
+    right: 3px;
+    top: 15px; } }
+
+@keyframes animate-toast-success-long {
+  0% {
+    width: 0;
+    right: 22px;
+    top: 26px; }
+  65% {
+    width: 0;
+    right: 22px;
+    top: 26px; }
+  84% {
+    width: 26px;
+    right: 0;
+    top: 15px; }
+  100% {
+    width: 22px;
+    right: 3px;
+    top: 15px; } }
+
+@-webkit-keyframes rotatePlaceholder {
+  0% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  5% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  12% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); }
+  100% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); } }
+
+@keyframes rotatePlaceholder {
+  0% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  5% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  12% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); }
+  100% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); } }
+
+.swal2-animate-success-line-tip {
+  -webkit-animation: animate-success-tip .75s;
+          animation: animate-success-tip .75s; }
+
+.swal2-animate-success-line-long {
+  -webkit-animation: animate-success-long .75s;
+          animation: animate-success-long .75s; }
+
+.swal2-success.swal2-animate-success-icon .swal2-success-circular-line-right {
+  -webkit-animation: rotatePlaceholder 4.25s ease-in;
+          animation: rotatePlaceholder 4.25s ease-in; }
+
+@-webkit-keyframes animate-error-icon {
+  0% {
+    -webkit-transform: rotateX(100deg);
+            transform: rotateX(100deg);
+    opacity: 0; }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    opacity: 1; } }
+
+@keyframes animate-error-icon {
+  0% {
+    -webkit-transform: rotateX(100deg);
+            transform: rotateX(100deg);
+    opacity: 0; }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    opacity: 1; } }
+
+.swal2-animate-error-icon {
+  -webkit-animation: animate-error-icon .5s;
+          animation: animate-error-icon .5s; }
+
+@-webkit-keyframes animate-x-mark {
+  0% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+    margin-top: -6px; }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } }
+
+@keyframes animate-x-mark {
+  0% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+    margin-top: -6px; }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } }
+
+.swal2-animate-x-mark {
+  -webkit-animation: animate-x-mark .5s;
+          animation: animate-x-mark .5s; }
+
+@-webkit-keyframes rotate-loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes rotate-loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+</style></head>
+
+<body sapling-installed="true">
+  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <tr style="padding:0px">
+      <td style="padding:0px">
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr style="padding:0px">
+            <td style="padding:2.5%;width:63%;vertical-align:middle">
+              <p style="text-align:center">
+                <name>Santhosh Subramanian</name>
+              </p>
+              <p> I am recent BA graduate from the <a href="https://math.berkeley.edu/"> University of California, Berkeley</a> where I majored in Applied Mathematics with a concentration in financial engineering and machine learning. My interests lie in quantitative finance, mathematical finance, data science, and machine learning. I am originally from John's Creek, Georgia and love playing football, basketball, volleyball, chess, and poker!
+              </p>
+              <p>
+                Throughout my four years at UC Berkeley, I have worked at many different organizations and even started my own -  <a href="https://www.cbinsights.com/company/diascan"> Diascan</a>. Most recently, I worked at a investment management firm called <a href="https://www.mainmgt.com/"> Main Management</a> primarily quant research. I've also previously worked at <a href="https://www.kiwibot.com/"> Kiwi Robotics</a>, <a href="https://www.crunchbase.com/organization/gofind-ai"> GoFind</a>, and <a href="https://asuc.org/"> The Associated Students Organization of UC Berkeley</a>. On campus, I was part of Theta Delta Chi and the Quantitative Investing Club @ Berkeley.
+              </p>
+              <p style="text-align:center">
+                <a href="mailto:santhosh97@berkeley.edu">Email</a> &nbsp;/&nbsp;
+                <a href="http://127.0.0.1:5500/data/resume.pdf">CV</a> &nbsp;/&nbsp;
+                <a href="http://127.0.0.1:5500/data/subramanian-bio.txt">Bio</a> &nbsp;/&nbsp;
+                <a href="http://127.0.0.1:5500/data/coursework.txt">Coursework</a> &nbsp;/&nbsp;
+                <a href="https://www.linkedin.com/in/santhosh97">LinkedIn</a> &nbsp;/&nbsp;
+                <a href="https://github.com/Santhosh97">Github</a>
+              </p>
+            </td>
+            <td style="padding:2.5%;width:40%;max-width:40%">
+              <a href="http://127.0.0.1:5500/images/santhosh_2.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="./Santhosh Subramanian_files/santhosh_3.png" class="hoverZoomLink"></a>
+            </td>
+          </tr>
+        </tbody></table>
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr>
+          <td style="padding:20px;width:100%;vertical-align:middle">
+            <heading>Relevant Coursework</heading>
+            <p>
+              <i>Math:</i> Multivariable Calculus, Linear Algebra and Differential Equations, Optimization, Proof Based Linear Algebra, Real Analysis, Numerical Analysis, Complex Analysis, and Honors Abstract Algebra
+            </p>
+            <p>
+              <i>Financial Engineering (Graduate Level):</i> Financial Engineering I - Financial Mathematics, Financial Engineering II - High Frequency Trading, Portfolio Theory and Optimization
+            </p>
+            <p><i>Computer Science:</i> Discrete Math and Probability, Structure and Interpretation of Computer Programs, Data Structures, Data Science &amp; Machine Learning</p>
+            <p><i>Miscellaneous:</i> Start Up Challenge Lab, Intro to Start Ups</p>
+          </td>
+        </tr>
+      </tbody></table>
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+            <td style="padding:20px;width:100%;vertical-align:middle">
+              <heading>Research</heading>
+              <p>
+                I'm interested in computer vision, machine learning, optimization, and image processing.
+                Much of my research is about inferring the physical world (shape, motion, color, light, etc) from images.
+                Representative papers are <span class="highlight">highlighted</span>.
+              </p>
+            </td>
+          </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+
+          <tr onmouseout="inerf_stop()" onmouseover="inerf_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="inerf_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/inerf_after.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/inerf_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function inerf_start() {
+                  document.getElementById('inerf_image').style.opacity = "1";
+                }
+                function inerf_stop() {
+                  document.getElementById('inerf_image').style.opacity = "0";
+                }
+                inerf_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://yenchenlin.me/inerf/">
+                <papertitle>iNeRF: Inverting Neural Radiance Fields for Pose Estimation</papertitle>
+              </a>
+              <br>
+              <a href="https://yenchenlin.me/">Lin Yen-Chen</a>, 
+              <a href="http://www.peteflorence.com/">Pete Florence</a>, 
+              <strong>Jonathan T. Barron</strong>, 
+              <a href="https://meche.mit.edu/people/faculty/ALBERTOR@MIT.EDU">Alberto Rodriguez</a>, <br>
+              <a href="http://web.mit.edu/phillipi/">Phillip Isola</a>,
+              <a href="https://scholar.google.com/citations?user=_BPdgV0AAAAJ&amp;hl=en">Tsung-Yi Lin</a>
+              <br>
+              <em>arXiv</em>, 2020  
+              <br>
+              <a href="http://yenchenlin.me/inerf/">project page</a> /
+              <a href="https://arxiv.org/abs/2012.05877">arXiv</a> /
+              <a href="https://www.youtube.com/watch?v=eQuCZaQN0tI">video</a>
+              <p></p>
+              <p>Given an image of an object and a NeRF of that object, you can estimate that object's pose.
+              </p>
+            </td>
+          </tr> 
+
+
+          <tr onmouseout="nerd_stop()" onmouseover="nerd_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nerd_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/nerd_160.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/nerd_160.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function nerd_start() {
+                  document.getElementById('nerd_image').style.opacity = "1";
+                }
+
+                function nerd_stop() {
+                  document.getElementById('nerd_image').style.opacity = "0";
+                }
+                nerd_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://markboss.me/publication/2021-nerd/">
+                <papertitle>NeRD: Neural Reflectance Decomposition from Image Collections</papertitle>
+              </a>
+              <br>
+
+              <a href="https://markboss.me/">Mark Boss</a>, 
+              <a href="https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/computergrafik/lehrstuhl/mitarbeiter/raphael-braun/">Raphael Braun</a>,
+              <a href="https://varunjampani.github.io/">Varun Jampani</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://people.csail.mit.edu/celiu/">Ce Liu</a>,
+              <a href="https://uni-tuebingen.de/en/faculties/faculty-of-science/departments/computer-science/lehrstuehle/computergrafik/computer-graphics/staff/prof-dr-ing-hendrik-lensch/">Hendrik P. A. Lensch</a>
+              <br>
+              <em>arXiv</em>, 2020
+              <br>
+              <a href="https://markboss.me/publication/2021-nerd/">project page</a> /
+              <a href="https://www.youtube.com/watch?v=JL-qMTXw9VU">video</a> /
+              <a href="https://github.com/cgtuebingen/NeRD-Neural-Reflectance-Decomposition">code</a> /
+              <a href="https://arxiv.org/abs/2012.03918">arXiv</a>
+              <p></p>
+              <p>
+              A NeRF-like model that can decompose (and mesh) objects with non-Lambertian reflectances, complex geometry, and unknown illumination.
+              </p>
+            </td>
+          </tr>
+
+
+          <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nerv_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/hotdog.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/hotdog.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function nerv_start() {
+                  document.getElementById('nerv_image').style.opacity = "1";
+                }
+
+                function nerv_stop() {
+                  document.getElementById('nerv_image').style.opacity = "0";
+                }
+                nerv_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://people.eecs.berkeley.edu/~pratul/nerv/">
+                <papertitle>NeRV: Neural Reflectance and Visibility Fields for Relighting and View Synthesis</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul Srinivasan</a>,
+              <a href="https://boyangdeng.com/">Boyang Deng</a>,
+              <a href="https://people.csail.mit.edu/xiuming/">Xiuming Zhang</a>,
+              <a href="http://matthewtancik.com/">Matthew Tancik</a>,
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>arXiv</em>, 2020
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~pratul/nerv/">project page</a> /
+              <a href="https://www.youtube.com/watch?v=4XyDdvhhjVo">video</a> /
+              <a href="https://arxiv.org/abs/2012.03927">arXiv</a>
+              <p></p>
+              <p>Using neural approximations of expensive visibility integrals lets you recover relightable NeRF-like models.</p>
+            </td>
+          </tr>
+
+
+          <tr onmouseout="winr_stop()" onmouseover="winr_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="winr_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/notre_160.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/notre.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function winr_start() {
+                  document.getElementById('winr_image').style.opacity = "1";
+                }
+                function winr_stop() {
+                  document.getElementById('winr_image').style.opacity = "0";
+                }
+                winr_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://www.matthewtancik.com/learnit">
+                <papertitle>Learned Initializations for Optimizing Coordinate-Based Neural Representations</papertitle>
+              </a>
+              <br>
+              <a href="http://matthewtancik.com/">Matthew Tancik*</a>,
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall*</a>,
+              <a href="https://www.linkedin.com/in/terrance-wang/">Terrance Wang</a>,
+              <a href="https://www.linkedin.com/in/divi-schmidt-262044180/">Divi Schmidt</a>,
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul Srinivasan</a>,
+              <br>
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://www2.eecs.berkeley.edu/Faculty/Homepages/yirenng.html">Ren Ng</a>
+              <br>
+              <em>arXiv</em>, 2020
+              <br>
+              <a href="http://www.matthewtancik.com/learnit">project page</a> /
+              <a href="https://www.youtube.com/watch?v=A-r9itCzcyo">video</a> /
+              <a href="https://arxiv.org/abs/2012.02189">arXiv</a> 
+              <p></p>
+              <p>Using meta-learning to find weight initializations for coordinate-based MLPs allows them to converge faster and generalize better.</p>
+            </td>
+          </tr>
+
+
+          <tr onmouseout="nerfie_stop()" onmouseover="nerfie_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nerfie_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/nerfie_after.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/nerfie_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function nerfie_start() {
+                  document.getElementById('nerfie_image').style.opacity = "1";
+                }
+                function nerfie_stop() {
+                  document.getElementById('nerfie_image').style.opacity = "0";
+                }
+                nerfie_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://nerfies.github.io/">
+                <papertitle>Deformable Neural Radiance Fields</papertitle>
+              </a>
+              <br>
+              
+              <a href="https://keunhong.com/">Keunhong Park</a>,
+              <a href="https://utkarshsinha.com/">Utkarsh Sinha</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://sofienbouaziz.com/">Sofien Bouaziz</a>,
+              <a href="https://www.danbgoldman.com/">Dan B Goldman</a>,
+              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a>,
+              <a href="http://www.ricardomartinbrualla.com/">Ricardo-Martin Brualla</a>
+              <br>
+              <em>arXiv</em>, 2020  
+              <br>
+              <a href="https://nerfies.github.io/">project page</a> /
+              <a href="https://arxiv.org/abs/2011.12948">arXiv</a> /
+              <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA">video</a>
+              <p></p>
+              <p>Building deformation fields into NeRF lets you capture non-rigid subjects, like people.
+              </p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="flare_stop()" onmouseover="flare_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="flare_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/flare_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/flare_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function flare_start() {
+                  document.getElementById('flare_image').style.opacity = "1";
+                }
+
+                function flare_stop() {
+                  document.getElementById('flare_image').style.opacity = "0";
+                }
+                flare_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2011.12485">
+                <papertitle>Single-Image Lens Flare Removal</papertitle>
+              </a>
+              <br>
+              <a href="http://yicheng.rice.edu/">Yicheng Wu</a>,
+              <a href="https://scholar.google.com/citations?user=BxqV_RsAAAAJ">Qiurui He</a>,
+              <a href="https://people.csail.mit.edu/tfxue/">Tianfan Xue</a>,
+              <a href="http://rahuldotgarg.appspot.com/">Rahul Garg</a>,
+              <a href="http://people.csail.mit.edu/jiawen/">Jiawen Chen</a>,
+              <a href="https://computationalimaging.rice.edu/team/ashok-veeraraghavan/">Ashok Veeraraghavan</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>arXiv</em>, 2020  
+              <br>
+              <p></p>
+              <p>
+                Simulating the optics of a camera's lens lets you train a model that removes lens flare from a single image.
+              </p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="c5_stop()" onmouseover="c5_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="c5_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/c5_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/c5_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function c5_start() {
+                  document.getElementById('c5_image').style.opacity = "1";
+                }
+
+                function c5_stop() {
+                  document.getElementById('c5_image').style.opacity = "0";
+                }
+                c5_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2011.11890">
+                <papertitle>Cross-Camera Convolutional Color Constancy</papertitle>
+              </a>
+              <br>
+              <a href="https://sites.google.com/corp/view/mafifi">Mahmoud Afifi</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://www.chloelegendre.com/">Chloe LeGendre</a>,
+              <a href="https://research.google/people/105312/">Yun-Ta Tsai</a>,
+              <a href="https://www.linkedin.com/in/fbleibel/">Francois Bleibel</a>
+              <br>
+              <em>arXiv</em>, 2020  
+              <br>
+              <p></p>
+              <p>
+                With some extra (unlabeled) test-set images, you can build a hypernetwork that calibrates itself at test time to previously-unseen cameras.
+              </p>
+            </td>
+          </tr> 
+
+
+          <tr onmouseout="lssr_stop()" onmouseover="lssr_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="lssr_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/lssr_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/lssr_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function lssr_start() {
+                  document.getElementById('lssr_image').style.opacity = "1";
+                }
+
+                function lssr_stop() {
+                  document.getElementById('lssr_image').style.opacity = "0";
+                }
+                lssr_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://cseweb.ucsd.edu/~viscomp/projects/SIGA20LightstageSuperres/">
+                <papertitle>Light Stage Super-Resolution: Continuous High-Frequency Relighting</papertitle>
+              </a>
+              <br>
+              <a href="http://kevinkingo.com/">Tiancheng Sun</a>,
+              <a href="https://cseweb.ucsd.edu/~zex014/">Zexiang Xu</a>
+              <a href="http://people.csail.mit.edu/xiuming/">Xiuming Zhang</a>,
+              <a href="http://www.seanfanello.it/">Sean Fanello</a>,
+              <a href="https://scholar.google.com/citations?user=5D0_pjcAAAAJ&amp;hl=en">Christoph Rhemann</a>,
+              <a href="https://www.pauldebevec.com/">Paul Debevec</a>,
+              <a href="https://research.google/people/105312/">Yun-Ta Tsai</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>
+              <br>
+              <em>SIGGRAPH Asia</em>, 2020  
+              <br>
+              <a href="http://cseweb.ucsd.edu/~viscomp/projects/SIGA20LightstageSuperres/">project page</a> / 
+              <a href="https://arxiv.org/abs/2010.08888">arXiv</a>
+              <p></p>
+              <p>
+                Scans for light stages are inherently aliased, but we can use learning to super-resolve them.
+              </p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="dualrefl_stop()" onmouseover="dualrefl_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="dualrefl_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/dualrefl_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/dualrefl_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function dualrefl_start() {
+                  document.getElementById('dualrefl_image').style.opacity = "1";
+                }
+
+                function dualrefl_stop() {
+                  document.getElementById('dualrefl_image').style.opacity = "0";
+                }
+                dualrefl_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://sniklaus.com/dualref">
+                <papertitle>Learned Dual-View Reflection Removal</papertitle>
+              </a>
+              <br>
+              <a href="http://sniklaus.com/welcome">Simon Niklaus</a>,
+              <a href="https://people.eecs.berkeley.edu/~cecilia77/">Xuaner (Cecilia) Zhang</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://nealwadhwa.com/">Neal Wadhwa</a>,
+              <a href="http://rahuldotgarg.appspot.com/">Rahul Garg</a>,
+              <a href="http://web.cecs.pdx.edu/~fliu/">Feng Liu</a>,
+              <a href="https://people.csail.mit.edu/tfxue/">Tianfan Xue</a>,
+              <br>
+              <em>WACV</em>, 2021
+              <br>
+              <a href="http://sniklaus.com/dualref">project page</a> /
+              <a href="https://arxiv.org/abs/2010.00702">arXiv</a>
+              <p></p>
+              <p>
+                Reflections and the things behind them often exhibit parallax, and this lets you remove reflections from stereo pairs.
+              </p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="nlt_stop()" onmouseover="nlt_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nlt_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/nlt_after.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/nlt_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function nlt_start() {
+                  document.getElementById('nlt_image').style.opacity = "1";
+                }
+
+                function nlt_stop() {
+                  document.getElementById('nlt_image').style.opacity = "0";
+                }
+                nlt_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://nlt.csail.mit.edu/">
+                <papertitle>Neural Light Transport for Relighting and View Synthesis</papertitle>
+              </a>
+              <br>
+              <a href="http://people.csail.mit.edu/xiuming/">Xiuming Zhang</a>,
+              <a href="http://www.seanfanello.it/">Sean Fanello</a>,
+              <a href="https://research.google/people/105312/">Yun-Ta Tsai</a>,
+              <a href="http://kevinkingo.com/">Tiancheng Sun</a>,
+              <a href="https://people.csail.mit.edu/tfxue/">Tianfan Xue</a>,
+              <a href="https://research.google/people/106687/">Rohit Pandey</a>,
+              <a href="https://www.dtic.ua.es/~sorts/">Sergio Orts-Escolano</a>,
+              <a href="https://dl.acm.org/profile/99659224296">Philip Davidson</a>,
+              <a href="https://scholar.google.com/citations?user=5D0_pjcAAAAJ&amp;hl=en">Christoph Rhemann</a>,
+              <a href="http://www.pauldebevec.com/">Paul Debevec</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>,
+              <a href="http://billf.mit.edu/">William T. Freeman</a>
+              <br>
+              <em>arXiv</em>, 2020  
+              <br>
+              <a href="http://nlt.csail.mit.edu/">project page</a> /
+              <a href="https://arxiv.org/abs/2008.03806">arXiv</a> /
+              <a href="https://www.youtube.com/watch?v=OGEnCWZihHE">video</a>
+              <p></p>
+              <p>Embedding a convnet within a predefined texture atlas enables simultaneous view synthesis and relighting.</p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="nerfw_stop()" onmouseover="nerfw_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nerfw_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/nerfw_after.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/nerfw_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function nerfw_start() {
+                  document.getElementById('nerfw_image').style.opacity = "1";
+                }
+
+                function nerfw_stop() {
+                  document.getElementById('nerfw_image').style.opacity = "0";
+                }
+                nerfw_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://nerf-w.github.io/">
+                <papertitle>NeRF in the Wild: Neural Radiance Fields for Unconstrained Photo Collections</papertitle>
+              </a>
+              <br>
+              <a href="http://www.ricardomartinbrualla.com/">Ricardo Martin-Brualla*</a>,
+              <a href="https://scholar.google.com/citations?user=g98QcZUAAAAJ&amp;hl=en">Noha Radwan*</a>,
+              <a href="https://research.google/people/105804/">Mehdi S. M. Sajjadi*</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://scholar.google.com/citations?user=FXNJRDoAAAAJ&amp;hl=en">Alexey Dosovitskiy</a>,
+              <a href="http://www.stronglyconvex.com/about.html">Daniel Duckworth</a>
+              <br>
+              <em>arXiv</em>, 2020  
+              <br>
+              <a href="https://nerf-w.github.io/">project page</a> /
+              <a href="https://arxiv.org/abs/2008.02268">arXiv</a> /
+              <a href="https://www.youtube.com/watch?v=mRAKVQj5LRA">video</a>
+              <p></p>
+              <p>Letting NeRF reason about occluders and appearance variation produces photorealistic view synthesis using only unstructured internet photos.</p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="ff_stop()" onmouseover="ff_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="ff_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/lion_ff.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/lion_none.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function ff_start() {
+                  document.getElementById('ff_image').style.opacity = "1";
+                }
+
+                function ff_stop() {
+                  document.getElementById('ff_image').style.opacity = "0";
+                }
+                ff_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://people.eecs.berkeley.edu/~bmild/fourfeat/index.html">
+                <papertitle>Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains</papertitle>
+              </a>
+              <br>
+              <a href="http://matthewtancik.com/">Matthew Tancik*</a>,
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul Srinivasan*</a>,
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall*</a>,
+              <a href="https://people.eecs.berkeley.edu/~sfk/">Sara Fridovich-Keil</a>,
+              <a href="https://www.linkedin.com/in/nithinraghavan">Nithin Raghavan</a>,
+              <a href="https://scholar.google.com/citations?user=lvA86MYAAAAJ&amp;hl=en">Utkarsh Singhal</a>,
+              <a href="http://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://www2.eecs.berkeley.edu/Faculty/Homepages/yirenng.html">Ren Ng</a>
+              <br>
+              <em>NeurIPS</em>, 2020 &nbsp; <font color="#FF8080"><strong>(Spotlight)</strong></font>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~bmild/fourfeat/">project page</a> /
+              video: <a href="https://www.youtube.com/watch?v=nVA6K6Sn2S4">3 min</a>, <a href="https://www.youtube.com/watch?v=iKyIJ_EtSkw">10 min</a> /
+              <a href="https://arxiv.org/abs/2006.10739">arXiv</a> /
+              <a href="https://github.com/tancik/fourier-feature-networks">code</a>
+              <p></p>
+              <p>Composing neural networks with a simple Fourier feature mapping allows them to learn detailed high-frequency functions.</p>
+            </td>
+          </tr> 
+
+    
+          <tr onmouseout="thresh_stop()" onmouseover="thresh_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="thresh_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/thresh_after.png" width="160"></div>
+                <img src="./Santhosh Subramanian_files/thresh_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function thresh_start() {
+                  document.getElementById('thresh_image').style.opacity = "1";
+                }
+
+                function thresh_stop() {
+                  document.getElementById('thresh_image').style.opacity = "0";
+                }
+                thresh_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2007.07350">
+                <papertitle>A Generalization of Otsu's Method and Minimum Error Thresholding</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>ECCV</em>, 2020 &nbsp; <font color="#FF8080"><strong>(Spotlight)</strong></font>
+              <br>
+              <a href="https://github.com/jonbarron/hist_thresh">code</a> / 
+              <a href="https://www.youtube.com/watch?v=rHtQQlQo1Q4">video</a> / 
+              <a href="http://127.0.0.1:5500/data/BarronECCV2020.bib">bibtex</a>
+              <br>
+              <p></p>
+              <p>
+              A simple and fast Bayesian algorithm that can be written in ~10 lines of code outperforms or matches giant CNNs on image binarization, and unifies three classic thresholding algorithms.
+              </p>
+            </td>
+          </tr>  
+    
+    
+          <tr onmouseout="uflow_stop()" onmouseover="uflow_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="uflow_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/uflow_after.png" width="160"></div>
+                <img src="./Santhosh Subramanian_files/uflow_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function uflow_start() {
+                  document.getElementById('uflow_image').style.opacity = "1";
+                }
+
+                function uflow_stop() {
+                  document.getElementById('uflow_image').style.opacity = "0";
+                }
+                uflow_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2006.04902">
+                <papertitle>What Matters in Unsupervised Optical Flow</papertitle>
+              </a>
+              <br>
+              <a href="http://ricojonschkowski.com/">Rico Jonschkowski</a>,
+              <a href="https://www.linkedin.com/in/austin-charles-stone-1ba33b138/">Austin Stone</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://research.google/people/ArielGordon/">Ariel Gordon</a>,
+              <a href="https://www.linkedin.com/in/kurt-konolige/">Kurt Konolige</a>,
+              <a href="https://research.google/people/AneliaAngelova/">Anelia Angelova</a>
+              <br>
+              <em>ECCV</em>, 2020 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <a href="https://github.com/google-research/google-research/tree/master/uflow">code</a>
+              <br>
+              <p></p>
+              <p>
+              Extensive experimentation yields a simple optical flow technique that is trained on only unlabeled videos, but still works as well as supervised techniques.
+              </p>
+            </td>
+          </tr>  
+    
+          <tr onmouseout="nerf_stop()" onmouseover="nerf_start()" bgcolor="#ffffd0">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nerf_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/vase_small.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/vase_still.png" width="160">
+              </div>
+              <script type="text/javascript">
+                function nerf_start() {
+                  document.getElementById('nerf_image').style.opacity = "1";
+                }
+
+                function nerf_stop() {
+                  document.getElementById('nerf_image').style.opacity = "0";
+                }
+                nerf_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://www.matthewtancik.com/nerf">
+                <papertitle>NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall*</a>,
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul Srinivasan*</a>,
+              <a href="http://matthewtancik.com/">Matthew Tancik*</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>,
+              <a href="https://www2.eecs.berkeley.edu/Faculty/Homepages/yirenng.html">Ren Ng</a>
+              <br>
+              <em>ECCV</em>, 2020 &nbsp; <font color="red"><strong>(Oral Presentation, Best Paper Honorable Mention)</strong></font>
+              <br>
+              <a href="http://www.matthewtancik.com/nerf">project page</a>
+              /
+              <a href="https://arxiv.org/abs/2003.08934">arXiv</a>
+              /
+              <a href="https://www.youtube.com/watch?v=LRAqeM8EjOo&amp;t">talk video</a>
+              /
+              <a href="https://www.youtube.com/watch?v=JuH79E8rdKc">supp video</a>
+              /
+              <a href="https://github.com/bmild/nerf">code</a>
+              <p></p>
+              <p>
+              Training a tiny non-convolutional neural network to reproduce a scene using volume rendering achieves photorealistic view synthesis.</p>
+            </td>
+          </tr> 
+
+          <tr onmouseout="porshadmanip_stop()" onmouseover="porshadmanip_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="porshadmanip_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/porshadmanip_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/porshadmanip_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function porshadmanip_start() {
+                  document.getElementById('porshadmanip_image').style.opacity = "1";
+                }
+
+                function porshadmanip_stop() {
+                  document.getElementById('porshadmanip_image').style.opacity = "0";
+                }
+                porshadmanip_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2005.08925">
+                <papertitle>Portrait Shadow Manipulation</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~cecilia77/">Xuaner (Cecilia) Zhang</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://ai.google/research/people/105312/">Yun-Ta Tsai</a>,
+              <a href="https://www.linkedin.com/in/rohit-pandey-bab10b7a/">Rohit Pandey</a>,
+              <a href="http://people.csail.mit.edu/xiuming/">Xiuming Zhang</a>,
+              <a href="http://graphics.stanford.edu/~renng/">Ren Ng</a>,
+              <a href="http://graphics.stanford.edu/~dejacobs/">David E. Jacobs</a>
+              <br>
+              <em>SIGGRAPH</em>, 2020  
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~cecilia77/project-pages/portrait">project page</a> / 
+              <a href="https://www.youtube.com/watch?v=M_qYTXhzyac">video</a>
+              <p></p>
+              <p>Networks can be trained to remove shadows cast on human faces and to soften harsh lighting.</p>
+            </td>
+          </tr>  
+
+          <tr onmouseout="learnaf_stop()" onmouseover="learnaf_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="learnaf_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/learnaf_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/learnaf_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function learnaf_start() {
+                  document.getElementById('learnaf_image').style.opacity = "1";
+                }
+
+                function learnaf_stop() {
+                  document.getElementById('learnaf_image').style.opacity = "0";
+                }
+                learnaf_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2004.12260">
+                <papertitle>Learning to Autofocus</papertitle>
+              </a>
+              <br>
+              <a href="http://127.0.0.1:5500/index.html">Charles Herrmann</a>,
+              <a href="http://127.0.0.1:5500/index.html">Richard Strong Bowen</a>,
+              <a href="http://nealwadhwa.com/">Neal Wadhwa</a>,
+              <a href="http://rahuldotgarg.appspot.com/">Rahul Garg</a>,
+              <a href="https://scholar.google.com/citations?user=BxqV_RsAAAAJ">Qiurui He</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://www.cs.cornell.edu/~rdz/index.htm">Ramin Zabih</a>
+              <br>
+              <em>CVPR</em>, 2020  
+              <br>
+              <a href="https://arxiv.org/abs/2004.12260">arXiv</a>
+              <p></p>
+              <p>Machine learning can be used to train cameras to autofocus (which is not the same problem as "depth from defocus").</p>
+            </td>
+          </tr>  
+
+    
+          <tr onmouseout="lighthouse_stop()" onmouseover="lighthouse_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="lh_image" style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
+                <source src="images/rings_crop.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src="./Santhosh Subramanian_files/rings.png" width="160">
+              </div>
+              <script type="text/javascript">
+                function lighthouse_start() {
+                  document.getElementById('lh_image').style.opacity = "1";
+                }
+
+                function lighthouse_stop() {
+                  document.getElementById('lh_image').style.opacity = "0";
+                }
+                lighthouse_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://people.eecs.berkeley.edu/~pratul/lighthouse/">
+                <papertitle>Lighthouse: Predicting Lighting Volumes for Spatially-Coherent Illumination</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul Srinivasan*</a>,
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall*</a>,
+              <a href="http://matthewtancik.com/">Matthew Tancik</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://research.google/people/RichardTucker/">Richard Tucker</a>,
+              <a href="https://www.cs.cornell.edu/~snavely/">Noah Snavely</a>
+              <br>
+        <em>CVPR</em>, 2020  
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~pratul/lighthouse/">project page</a>
+        /
+              <a href="https://github.com/pratulsrinivasan/lighthouse">code</a>
+        /
+              <a href="https://arxiv.org/abs/2003.08367">arXiv</a>
+        /
+              <a href="https://www.youtube.com/watch?v=KsiZpUFPqIU">video</a>
+              <p></p>
+              <p>We predict a volume from an input stereo pair that can be used to calculate incident lighting at any 3D point within a scene.</p>
+            </td>
+          </tr>  
+
+          <tr onmouseout="skyopt_stop()" onmouseover="skyopt_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="skyopt_image" style="opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/skyopt_after.jpg" width="160"></div>
+                <img src="./Santhosh Subramanian_files/skyopt_before.jpg" width="160">
+              </div>
+              <script type="text/javascript">
+                function skyopt_start() {
+                  document.getElementById('skyopt_image').style.opacity = "1";
+                }
+
+                function skyopt_stop() {
+                  document.getElementById('skyopt_image').style.opacity = "0";
+                }
+                skyopt_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2006.10172">
+                <papertitle>Sky Optimization: Semantically Aware Image Processing of Skies in Low-Light Photography</papertitle>
+              </a>
+              <br>
+              <a href="https://sites.google.com/corp/view/orly-liba/">Orly Liba</a>,
+              <a href="https://www.linkedin.com/in/longqicai/en-us">Longqi Cai</a>,
+              <a href="https://ai.google/research/people/105312/">Yun-Ta Tsai</a>,
+              <a href="https://research.google/people/EladEban/">Elad Eban</a>,
+              <a href="https://research.google/people/YairMovshovitzAttias/">Yair Movshovitz-Attias</a>,
+              <a href="https://scholar.google.com/citations?user=2jXxOYQAAAAJ">Yael Pritch</a>,
+              <a href="https://www.linkedin.com/in/huizhong-chen-00776432">Huizhong Chen</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>NTIRE CVPRW</em>, 2020  
+              <br>
+              <a href="https://google.github.io/sky-optimization/">project page</a>
+              <p></p>
+              <p>If you want to photograph the sky, it helps to know where the sky is.</p>
+            </td>
+          </tr>  
+
+          <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="nightsight_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/nightsight_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/nightsight_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function nightsight_start() {
+                  document.getElementById('nightsight_image').style.opacity = "1";
+                }
+
+                function nightsight_stop() {
+                  document.getElementById('nightsight_image').style.opacity = "0";
+                }
+                nightsight_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/1910.11336">
+                <papertitle>Handheld Mobile Photography in Very Low Light</papertitle>
+              </a>
+              <br>
+              <a href="https://sites.google.com/site/orlylibaprofessional/">Orly Liba</a>,
+              <a href="https://scholar.google.com/citations?user=6PhlPWMAAAAJ">Kiran Murthy</a>,
+              <a href="https://ai.google/research/people/105312/">Yun-Ta Tsai</a>,
+              <a href="https://www.timothybrooks.com/">Timothy Brooks</a>,
+              <a href="https://people.csail.mit.edu/tfxue/">Tianfan Xue</a>,
+              <a href="https://scholar.google.com/citations?user=qgc_jY0AAAAJ">Nikhil Karnad</a>,
+              <a href="https://scholar.google.com/citations?user=BxqV_RsAAAAJ">Qiurui He</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://ai.google/research/people/105641/">Dillon Sharlet</a>,
+              <a href="http://www.geisswerks.com/">Ryan Geiss</a>,
+              <a href="https://people.csail.mit.edu/hasinoff/">Samuel W. Hasinoff</a>,
+              <a href="https://scholar.google.com/citations?user=2jXxOYQAAAAJ">Yael Pritch</a>,
+              <a href="http://graphics.stanford.edu/~levoy/">Marc Levoy</a>
+              <br>
+              <em>SIGGRAPH Asia</em>, 2019
+              <br>
+              <a href="https://github.com/google/night-sight/tree/master/docs">project page</a>
+              <br>
+              <p></p>
+              <p>By rethinking metering, white balance, and tone mapping, we can take pictures in places too dark for humans to see clearly.</p>
+            </td>
+          </tr>
+          
+          <tr onmouseout="font_stop()" onmouseover="font_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="font_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/font_after.png"></div>
+                <img src="./Santhosh Subramanian_files/font_before.png">
+              </div>
+              <script type="text/javascript">
+                function font_start() {
+                  document.getElementById('font_image').style.opacity = "1";
+                }
+
+                function font_stop() {
+                  document.getElementById('font_image').style.opacity = "0";
+                }
+                font_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/1910.00748">
+                <papertitle>A Deep Factorization of Style and Structure in Fonts</papertitle>
+              </a>
+              <br>
+              <a href="http://www.cs.cmu.edu/~asrivats/">Nikita Srivatsan</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://people.eecs.berkeley.edu/~klein/">Dan Klein</a>,
+              <a href="http://cseweb.ucsd.edu/~tberg/">Taylor Berg-Kirkpatrick</a>
+              <br>
+              <em>EMNLP</em>, 2019 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <p></p>
+              <p>Variational auto-encoders can be used to disentangle a characters style from its content.</p>
+            </td>
+          </tr>
+          
+          <tr onmouseout="dpzlearn_stop()" onmouseover="dpzlearn_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="dpzlearn_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/dpzlearn_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/dpzlearn_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function dpzlearn_start() {
+                  document.getElementById('dpzlearn_image').style.opacity = "1";
+                }
+
+                function dpzlearn_stop() {
+                  document.getElementById('dpzlearn_image').style.opacity = "0";
+                }
+                dpzlearn_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/1904.05822">
+                <papertitle>Learning Single Camera Depth Estimation using Dual-Pixels</papertitle>
+              </a>
+              <br>
+              <a href="http://rahuldotgarg.appspot.com/">Rahul Garg</a>,
+              <a href="http://nealwadhwa.com/">Neal Wadhwa</a>,
+              <a href="http://127.0.0.1:5500/index.html">Sameer Ansari,</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>ICCV</em>, 2019 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <a href="https://github.com/google-research/google-research/tree/master/dual_pixels">code</a> /
+              <a href="http://127.0.0.1:5500/data/GargICCV2019.bib">bibtex</a>
+              <p></p>
+              <p>Considering the optics of dual-pixel image sensors improves monocular depth estimation techniques.</p>
+            </td>
+          </tr>
+          
+          <tr onmouseout="porlight_stop()" onmouseover="porlight_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="porlight_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/porlight_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/porlight_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function porlight_start() {
+                  document.getElementById('porlight_image').style.opacity = "1";
+                }
+
+                function porlight_stop() {
+                  document.getElementById('porlight_image').style.opacity = "0";
+                }
+                porlight_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://cseweb.ucsd.edu/~viscomp/projects/SIG19PortraitRelighting/">
+                <papertitle>Single Image Portrait Relighting</papertitle>
+              </a>
+              <br>
+              <a href="http://kevinkingo.com/">Tiancheng Sun</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://ai.google/research/people/105312/">Yun-Ta Tsai</a>,
+              <a href="https://cseweb.ucsd.edu/~zex014/">Zexiang Xu</a>, Xueming Yu,
+              <a href="http://ict.usc.edu/profile/graham-fyffe/">Graham Fyffe</a>, Christoph Rhemann, Jay Busch,
+              <a href="https://www.pauldebevec.com/">Paul Debevec</a>,
+              <a href="https://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>
+              <br>
+              <em>SIGGRAPH</em>, 2019
+              <br>
+              <a href="http://cseweb.ucsd.edu/~viscomp/projects/SIG19PortraitRelighting/">project page</a> / 
+              <a href="https://arxiv.org/abs/1905.00824">arxiv</a> / 
+              <a href="https://www.youtube.com/watch?v=yxhGWds_g4I">video</a> /
+              <a href="https://petapixel.com/2019/07/16/researchers-developed-an-ai-that-can-relight-portraits-after-the-fact/">press</a> /
+              <a href="http://127.0.0.1:5500/data/SunSIGGRAPH2019.bib">bibtex</a>
+              <br>
+              <p></p>
+              <p>Training a neural network on light stage scans and environment maps produces an effective relighting method.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="loss_stop()" onmouseover="loss_start()" bgcolor="#ffffd0">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="loss_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/loss_after.png"></div>
+                <img src="./Santhosh Subramanian_files/loss_before.png">
+              </div>
+              <script type="text/javascript">
+                function loss_start() {
+                  document.getElementById('loss_image').style.opacity = "1";
+                }
+
+                function loss_stop() {
+                  document.getElementById('loss_image').style.opacity = "0";
+                }
+                loss_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/open?id=1xpZ0fL9h1y9RfcTyPgVkxUrF3VwdkBvq">
+                <papertitle>A General and Adaptive Robust Loss Function</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>CVPR</em>, 2019 &nbsp; <font color="red"><strong>(Oral Presentation, Best Paper Award Finalist)</strong></font>
+              <br>
+              <a href="https://arxiv.org/abs/1701.03077">arxiv</a> /
+              <a href="https://drive.google.com/open?id=1HNveL7xSNh6Ss7sxLK8Mw2L1Fc-rRhL4">supplement</a> /
+              <a href="https://youtu.be/BmNKbnF69eY">video</a> /
+              <a href="https://www.youtube.com/watch?v=4IInDT_S0ow&amp;t=37m22s">talk</a> / 
+              <a href="https://drive.google.com/file/d/1GzRYRIfLHvNLT_QwjHoBjHkBbs3Nbf0x/view?usp=sharing">slides</a> / 
+              code: <a href="https://github.com/google-research/google-research/tree/master/robust_loss">TF</a>, <a href="https://github.com/google-research/google-research/tree/master/robust_loss_jax">JAX</a>, <a href="https://github.com/jonbarron/robust_loss_pytorch">pytorch</a> /
+              <a href="http://127.0.0.1:5500/data/BarronCVPR2019_reviews.txt">reviews</a> /
+              <a href="http://127.0.0.1:5500/data/BarronCVPR2019.bib">bibtex</a>
+              <p></p>
+              <p>A single robust loss function is a superset of many other common robust loss functions, and allows training to automatically adapt the robustness of its own loss.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="mpi_stop()" onmouseover="mpi_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="mpi_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/mpi_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/mpi_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function mpi_start() {
+                  document.getElementById('mpi_image').style.opacity = "1";
+                }
+
+                function mpi_stop() {
+                  document.getElementById('mpi_image').style.opacity = "0";
+                }
+                mpi_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1TU5L6fnt4Kd49IUOU7aNxor5NIgdHuNG/view?usp=sharing">
+                <papertitle>Pushing the Boundaries of View Extrapolation with Multiplane Images</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul P. Srinivasan</a>, Richard Tucker,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>,
+              <a href="http://graphics.stanford.edu/~renng/">Ren Ng</a>,
+              <a href="https://www.cs.cornell.edu/~snavely/">Noah Snavely</a>
+              <br>
+              <em>CVPR</em>, 2019 &nbsp; <font color="red"><strong>(Oral Presentation, Best Paper Award Finalist)</strong></font>
+              <br>
+              <a href="https://drive.google.com/file/d/1GUW_n-BAn9Q4VntEA_OTHNJiHO7XfC62/view?usp=sharing">supplement</a> /
+              <a href="https://www.youtube.com/watch?v=aJqAaMNL2m4">video</a> /
+              <a href="http://127.0.0.1:5500/data/SrinivasanCVPR2019.bib">bibtex</a>
+              <p></p>
+              <p>View extrapolation with multiplane images works better if you reason about disocclusions and disparity sampling frequencies.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="unprocessing_stop()" onmouseover="unprocessing_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="unprocessing_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/unprocessing_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/unprocessing_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function unprocessing_start() {
+                  document.getElementById('unprocessing_image').style.opacity = "1";
+                }
+
+                function unprocessing_stop() {
+                  document.getElementById('unprocessing_image').style.opacity = "0";
+                }
+                unprocessing_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1H0Wtd--un2JN76dUJN8iC9fWfkA16n8D/view?usp=sharing">
+                <papertitle>Unprocessing Images for Learned Raw Denoising</papertitle>
+              </a>
+              <br>
+              <a href="http://timothybrooks.com/">Tim Brooks</a>,
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall</a>,
+              <a href="https://people.csail.mit.edu/tfxue/">Tianfan Xue</a>,
+              <a href="http://people.csail.mit.edu/jiawen/">Jiawen Chen</a>,
+              <a href="http://www.dsharlet.com/">Dillon Sharlet</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>CVPR</em>, 2019 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <a href="https://arxiv.org/abs/1811.11127">arxiv</a> /
+              <a href="http://timothybrooks.com/tech/unprocessing/">project page</a> /
+              <a href="https://github.com/google-research/google-research/tree/master/unprocessing">code</a> / 
+              <a href="http://127.0.0.1:5500/data/BrooksCVPR2019.bib">bibtex</a>
+              <p></p>
+              <p>We can learn a better denoising model by processing and unprocessing images the same way a camera does.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="motionblur_stop()" onmouseover="motionblur_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="motionblur_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/motionblur_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/motionblur_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function motionblur_start() {
+                  document.getElementById('motionblur_image').style.opacity = "1";
+                }
+
+                function motionblur_stop() {
+                  document.getElementById('motionblur_image').style.opacity = "0";
+                }
+                motionblur_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1hWpA4f6iLVcOkZI3zEAAWKARSQhnVgbY/view?usp=sharing">
+                <papertitle>Learning to Synthesize Motion Blur</papertitle>
+              </a>
+              <br>
+              <a href="http://timothybrooks.com/">Tim Brooks</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>CVPR</em>, 2019 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <a href="https://arxiv.org/abs/1811.11745">arxiv</a> /
+              <a href="https://drive.google.com/file/d/1dUQwBMmQdYYIP0zHR_nDQY-uQbaMdcSN/view?usp=sharing">supplement</a> /
+              <a href="http://timothybrooks.com/tech/motion-blur/">project page</a> /
+              <a href="https://www.youtube.com/watch?v=8T1jjSz-2V8">video</a> /
+              <a href="https://github.com/google-research/google-research/tree/master/motion_blur">code</a> / 
+              <a href="http://127.0.0.1:5500/data/BrooksBarronCVPR2019.bib">bibtex</a>
+              <p></p>
+              <p>Frame interpolation techniques can be used to train a network that directly synthesizes linear blur kernels.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="darkflash_stop()" onmouseover="darkflash_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="darkflash_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/darkflash_after.png"></div>
+                <img src="./Santhosh Subramanian_files/darkflash_before.png">
+              </div>
+              <script type="text/javascript">
+                function darkflash_start() {
+                  document.getElementById('darkflash_image').style.opacity = "1";
+                }
+
+                function darkflash_stop() {
+                  document.getElementById('darkflash_image').style.opacity = "0";
+                }
+                darkflash_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/1901.01370">
+                <papertitle>Stereoscopic Dark Flash for Low-light Photography</papertitle>
+              </a>
+              <br>
+              <a href="https://www.andrew.cmu.edu/user/jianwan2/">Jian Wang</a>,
+              <a href="https://people.csail.mit.edu/tfxue/">Tianfan Xue</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://people.csail.mit.edu/jiawen/">Jiawen Chen</a>
+              <br>
+              <em>ICCP</em>, 2019
+              <br>
+              <p></p>
+              <p>
+                By making one camera in a stereo pair hyperspectral we can multiplex dark flash pairs in space instead of time.
+              </p>
+            </td>
+          </tr>
+
+          <tr onmouseout="motionstereo_stop()" onmouseover="motionstereo_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="motionstereo_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/motionstereo_after.png"></div>
+                <img src="./Santhosh Subramanian_files/motionstereo_before.png">
+              </div>
+              <script type="text/javascript">
+                function motionstereo_start() {
+                  document.getElementById('motionstereo_image').style.opacity = "1";
+                }
+
+                function motionstereo_stop() {
+                  document.getElementById('motionstereo_image').style.opacity = "0";
+                }
+                motionstereo_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1AABFJ3NgD5DAo5JEpEjWZrcQNzjZnvW9/view?usp=sharing">
+                <papertitle>Depth from Motion for Smartphone AR</papertitle>
+              </a>
+              <br>
+              <a href="https://www.linkedin.com/in/valentinjulien/">Julien Valentin</a>,
+              <a href="https://www.linkedin.com/in/adarshkowdle/">Adarsh Kowdle</a>,
+              <strong>Jonathan T. Barron</strong>, <a href="http://nealwadhwa.com/">Neal Wadhwa</a>, and others
+              <br>
+              <em>SIGGRAPH Asia</em>, 2018
+              <br>
+              <a href="https://github.com/jonbarron/planar_filter">planar filter toy code</a> / 
+              <a href="http://127.0.0.1:5500/data/Valentin2018.bib">bibtex</a>
+              <p></p>
+              <p>Depth cues from camera motion allow for real-time occlusion effects in augmented reality applications.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="portrait_stop()" onmouseover="portrait_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="portrait_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/portrait_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/portrait_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function portrait_start() {
+                  document.getElementById('portrait_image').style.opacity = "1";
+                }
+
+                function portrait_stop() {
+                  document.getElementById('portrait_image').style.opacity = "0";
+                }
+                portrait_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/13i6DlS9UhGVKmwslLUFnKBwdxFRVQeQj/view?usp=sharing">
+                <papertitle>Synthetic Depth-of-Field with a Single-Camera Mobile Phone</papertitle>
+              </a>
+              <br>
+              <a href="http://nealwadhwa.com/">Neal Wadhwa</a>,
+              <a href="http://rahuldotgarg.appspot.com/">Rahul Garg</a>,
+              <a href="http://graphics.stanford.edu/~dejacobs/">David E. Jacobs</a>, Bryan E. Feldman, Nori Kanazawa, Robert Carroll,
+              <a href="http://www.cs.cmu.edu/~ymovshov/">Yair Movshovitz-Attias</a>,
+              <strong>Jonathan T. Barron</strong>, Yael Pritch,
+              <a href="http://graphics.stanford.edu/~levoy/">Marc Levoy</a>
+              <br>
+              <em>SIGGRAPH</em>, 2018
+              <br>
+              <a href="https://arxiv.org/abs/1806.04171">arxiv</a> /
+              <a href="https://ai.googleblog.com/2017/10/portrait-mode-on-pixel-2-and-pixel-2-xl.html">blog post</a> /
+              <a href="http://127.0.0.1:5500/data/Wadhwa2018.bib">bibtex</a>
+              <p></p>
+              <p>Dual pixel cameras and semantic segmentation algorithms can be used for shallow depth of field effects.</p>
+              <p>This system is the basis for "Portrait Mode" on the Google Pixel 2 smartphones</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="aperture_stop()" onmouseover="aperture_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="aperture_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/aperture_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/aperture_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function aperture_start() {
+                  document.getElementById('aperture_image').style.opacity = "1";
+                }
+
+                function aperture_stop() {
+                  document.getElementById('aperture_image').style.opacity = "0";
+                }
+                aperture_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1MpvxcW7OTJP321QL_q4ZLQ8D653bZZzy/view?usp=sharing">
+                <papertitle>Aperture Supervision for Monocular Depth Estimation</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~pratul/">Pratul P. Srinivasan</a>,
+              <a href="http://rahuldotgarg.appspot.com/">Rahul Garg</a>,
+              <a href="http://nealwadhwa.com/">Neal Wadhwa</a>,
+              <a href="http://graphics.stanford.edu/~renng/">Ren Ng</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>CVPR</em>, 2018
+              <br>
+              <a href="https://github.com/google/aperture_supervision">code</a> /
+              <a href="http://127.0.0.1:5500/data/Srinivasan2018.bib">bibtex</a>
+              <p></p>
+              <p>Varying a camera's aperture provides a supervisory signal that can teach a neural network to do monocular depth estimation.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="deepburst_stop()" onmouseover="deepburst_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="deepburst_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/deepburst_after.png"></div>
+                <img src="./Santhosh Subramanian_files/deepburst_before.png">
+              </div>
+              <script type="text/javascript">
+                function deepburst_start() {
+                  document.getElementById('deepburst_image').style.opacity = "1";
+                }
+
+                function deepburst_stop() {
+                  document.getElementById('deepburst_image').style.opacity = "0";
+                }
+                deepburst_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1GAH8ijyZ7GnoBnQFANEzdXinHrE4vvXn/view?usp=sharing">
+                <papertitle>Burst Denoising with Kernel Prediction Networks</papertitle>
+              </a>
+              <br>
+              <a href="https://people.eecs.berkeley.edu/~bmild/">Ben Mildenhall</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://people.csail.mit.edu/jiawen/">Jiawen Chen</a>,
+              <a href="http://www.dsharlet.com/">Dillon Sharlet</a>,
+              <a href="http://graphics.stanford.edu/~renng/">Ren Ng</a>, Robert Carroll
+              <br>
+              <em>CVPR</em>, 2018 &nbsp; <font color="#FF8080"><strong>(Spotlight)</strong></font>
+              <br>
+              <a href="https://drive.google.com/file/d/1aqk3Q-L2spjLZh2yRWKUWIDcZkGjQ7US/view?usp=sharing">supplement</a> /
+              <a href="https://github.com/google/burst-denoising">code</a> /
+              <a href="http://127.0.0.1:5500/data/Mildenhall2018.bib">bibtex</a>
+              <p></p>
+              <p>We train a network to predict linear kernels that denoise noisy bursts from cellphone cameras.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="friendly_stop()" onmouseover="friendly_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="friendly_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/friendly_after.png"></div>
+                <img src="./Santhosh Subramanian_files/friendly_before.png">
+              </div>
+              <script type="text/javascript">
+                function friendly_start() {
+                  document.getElementById('friendly_image').style.opacity = "1";
+                }
+
+                function friendly_stop() {
+                  document.getElementById('friendly_image').style.opacity = "0";
+                }
+                friendly_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1w_0djhL0QgC_fbehnJ0c-J23_kW_420p/view?usp=sharing">
+                <papertitle>A Hardware-Friendly Bilateral Solver for Real-Time Virtual Reality Video</papertitle>
+              </a>
+              <br>
+              <a href="https://homes.cs.washington.edu/~amrita/">Amrita Mazumdar</a>, <a href="http://homes.cs.washington.edu/~armin/">Armin Alaghi</a>, <strong>Jonathan T. Barron</strong>, <a href="https://www.cs.unc.edu/~gallup/">David Gallup</a>, <a href="https://homes.cs.washington.edu/~luisceze/">Luis Ceze</a>, <a href="https://homes.cs.washington.edu/~oskin/">Mark Oskin</a>, <a href="http://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a>
+              <br>
+              <em>High-Performance Graphics (HPG)</em>, 2017
+              <br>
+              <a href="https://sampa.cs.washington.edu/projects/vr-hw.html">project page</a>
+              <p></p>
+              <p>A reformulation of the bilateral solver can be implemented efficiently on GPUs and FPGAs.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="hdrnet_stop()" onmouseover="hdrnet_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="hdrnet_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/hdrnet_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/hdrnet_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function hdrnet_start() {
+                  document.getElementById('hdrnet_image').style.opacity = "1";
+                }
+
+                function hdrnet_stop() {
+                  document.getElementById('hdrnet_image').style.opacity = "0";
+                }
+                hdrnet_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1jQY3CTMnLX7PeGUzYLso9H1eCsZyWbwg/view?usp=sharing">
+                <papertitle>Deep Bilateral Learning for Real-Time Image Enhancement</papertitle>
+              </a>
+              <br>
+              <a href="http://www.mgharbi.com/">Michaël Gharbi</a>, <a href="http://people.csail.mit.edu/jiawen/">Jiawen Chen</a>, <strong>Jonathan T. Barron</strong>, <a href="https://people.csail.mit.edu/hasinoff/">Samuel W. Hasinoff</a>, <a href="http://people.csail.mit.edu/fredo/">Frédo Durand </a>
+              <br>
+              <em>SIGGRAPH</em>, 2017
+              <br>
+              <a href="https://groups.csail.mit.edu/graphics/hdrnet/">project page</a> /
+              <a href="https://www.youtube.com/watch?v=GAe0qKKQY_I">video</a> /
+              <a href="http://127.0.0.1:5500/data/GharbiSIGGRAPH2017.bib">bibtex</a> /
+              <a href="http://news.mit.edu/2017/automatic-image-retouching-phone-0802">p</a><a href="https://www.wired.com/story/googles-new-algorithm-perfects-photos-before-you-even-take-them/">r</a><a href="https://petapixel.com/2017/08/02/new-ai-can-retouch-photos-snap/">e</a><a href="https://www.theverge.com/2017/8/2/16082272/google-mit-retouch-photos-machine-learning">s</a><a href="http://gizmodo.com/clever-camera-app-uses-deep-learning-to-perfectly-retou-1797474282">s</a>
+              <p></p>
+              <p>By training a deep network in bilateral space we can learn a model for high-resolution and real-time image enhancement.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="ffcc_stop()" onmouseover="ffcc_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="ffcc_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/ffcc_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/ffcc_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function ffcc_start() {
+                  document.getElementById('ffcc_image').style.opacity = "1";
+                }
+
+                function ffcc_stop() {
+                  document.getElementById('ffcc_image').style.opacity = "0";
+                }
+                ffcc_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/1611.07596">
+                <papertitle>Fast Fourier Color Constancy</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://ai.google/research/people/105312/">Yun-Ta Tsai</a>,
+              <br>
+              <em>CVPR</em>, 2017
+              <br>
+              <a href="https://youtu.be/rZCXSfl13rY">video</a> /
+              <a href="http://127.0.0.1:5500/data/BarronTsaiCVPR2017.bib">bibtex</a> /
+              <a href="https://github.com/google/ffcc">code</a> /
+              <a href="https://drive.google.com/open?id=0B4nuwEMaEsnmWkJQMlFPSFNzbEk">output</a> /
+              <a href="https://blog.google/products/photos/six-tips-make-your-photos-pop/">blog post</a> /
+              <a href="https://9to5google.com/2017/03/03/google-photos-auto-white-balance/">p</a><a href="https://www.engadget.com/2017/03/03/google-photos-automatically-fixes-your-pictures-white-balance/">r</a><a href="https://lifehacker.com/google-photos-will-now-automatically-adjust-the-white-b-1793009155">e</a><a href="https://petapixel.com/2017/03/06/google-photos-will-now-automatically-white-balance-snapshots/">s</a><a href="http://www.theverge.com/2017/3/3/14800062/google-photos-auto-white-balance-android">s</a>
+              <p></p>
+              <p>Color space can be aliased, allowing white balance models to be learned and evaluated in the frequency domain. This improves accuracy by 13-20% and speed by 250-3000x.</p>
+              <p>This technology is used by <a href="https://store.google.com/product/pixel_compare">Google Pixel</a>, <a href="https://photos.google.com/">Google Photos</a>, and <a href="https://www.google.com/maps">Google Maps</a>.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="jump_stop()" onmouseover="jump_start()" bgcolor="#ffffd0">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="jump_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/jump_anim.gif"></div>
+                <img src="./Santhosh Subramanian_files/jump_still.png">
+              </div>
+              <script type="text/javascript">
+                function jump_start() {
+                  document.getElementById('jump_image').style.opacity = "1";
+                }
+
+                function jump_stop() {
+                  document.getElementById('jump_image').style.opacity = "0";
+                }
+                jump_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1RBnTrtzqmuO8uj3GQaR5vBJZjIC3Jxjn/view?usp=sharing">
+                <papertitle>Jump: Virtual Reality Video</papertitle>
+              </a>
+              <br>
+              <a href="http://mi.eng.cam.ac.uk/~ra312/">Robert Anderson</a>, <a href="https://www.cs.unc.edu/~gallup/">David Gallup</a>, <strong>Jonathan T. Barron</strong>, <a href="https://mediatech.aalto.fi/~janne/index.php">Janne Kontkanen</a>, <a href="https://www.cs.cornell.edu/~snavely/">Noah Snavely</a>, <a href="http://carlos-hernandez.org/">Carlos Hernández</a>, <a href="https://homes.cs.washington.edu/~sagarwal/">Sameer Agarwal</a>, <a href="https://homes.cs.washington.edu/~seitz/">Steven M Seitz</a>
+              <br>
+              <em>SIGGRAPH Asia</em>, 2016
+              <br>
+              <a href="https://drive.google.com/file/d/11D4eCDXqqFTtZT0WS2COJE0hsAN3QEww/view?usp=sharing">supplement</a> /
+              <a href="https://www.youtube.com/watch?v=O0qUYynupTI">video</a> /
+              <a href="http://127.0.0.1:5500/data/Anderson2016.bib">bibtex</a> /
+              <a href="https://blog.google/products/google-vr/jump-using-omnidirectional-stereo-vr-video/">blog post</a>
+              <p></p>
+              <p>Using computer vision and a ring of cameras, we can make video for virtual reality headsets that is both stereo and 360°.</p>
+              <p>This technology is used by <a href="https://vr.google.com/jump/">Jump</a>. </p>
+            </td>
+          </tr>
+
+          <tr onmouseout="hdrp_stop()" onmouseover="hdrp_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="hdrp_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/hdrp_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/hdrp_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function hdrp_start() {
+                  document.getElementById('hdrp_image').style.opacity = "1";
+                }
+
+                function hdrp_stop() {
+                  document.getElementById('hdrp_image').style.opacity = "0";
+                }
+                hdrp_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1SSSmVHWbMQ7sZMOredSVWVJXbXobkyzA/view?usp=sharing">
+                <papertitle>Burst Photography for High Dynamic Range and Low-Light Imaging on Mobile Cameras</papertitle>
+              </a>
+              <br>
+              <a href="http://people.csail.mit.edu/hasinoff/">Samuel W. Hasinoff</a>, <a href="http://www.dsharlet.com/">Dillon Sharlet</a>, <a href="http://www.geisswerks.com/">Ryan Geiss</a>, <a href="http://people.csail.mit.edu/abadams/">Andrew Adams</a>, <strong>Jonathan T. Barron</strong>, Florian Kainz, <a href="http://people.csail.mit.edu/jiawen/">Jiawen Chen</a>, <a href="http://graphics.stanford.edu/~levoy/">Marc Levoy</a>
+              <br>
+              <em>SIGGRAPH Asia</em>, 2016
+              <br>
+              <a href="http://hdrplusdata.org/">project page</a> /
+              <a href="https://drive.google.com/open?id=15EUuSDi1BtHUgQCaiooVrD44qYKIC3vx">supplement</a> /
+              <a href="http://127.0.0.1:5500/data/Hasinoff2016.bib">bibtex</a>
+              <p></p>
+              <p>Mobile phones can take beautiful photographs in low-light or high dynamic range environments by aligning and merging a burst of images.</p>
+              <p>This technology is used by the <a href="https://research.googleblog.com/2014/10/hdr-low-light-and-high-dynamic-range.html">Nexus HDR+</a> feature.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="bs_stop()" onmouseover="bs_start()" bgcolor="#ffffd0">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="bs_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/BS_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/BS_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function bs_start() {
+                  document.getElementById('bs_image').style.opacity = "1";
+                }
+
+                function bs_stop() {
+                  document.getElementById('bs_image').style.opacity = "0";
+                }
+                bs_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1zFzCaFwkGK1EGmJ_KEqb-ZsRJhfUKN2S/view?usp=sharing">
+                <papertitle>The Fast Bilateral Solver</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://cs.stanford.edu/~poole/">Ben Poole</a>
+              <br>
+              <em>ECCV</em>, 2016 &nbsp; <font color="red"><strong>(Oral Presentation, Best Paper Honorable Mention)</strong></font>
+              <br>
+              <a href="http://arxiv.org/abs/1511.03296">arXiv</a> /
+              <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmdEREcjhlSXM2NGs/view?usp=sharing">supplement</a> /
+              <a href="http://127.0.0.1:5500/data/BarronPooleECCV2016.bib">bibtex</a> /
+              <a href="http://videolectures.net/eccv2016_barron_bilateral_solver/">video (they messed up my slides, use →)</a> /
+              <a href="https://drive.google.com/file/d/19x1AeN0PFus6Pjrd8nR-vCmJ6bNEefsC/view?usp=sharing">keynote</a> (or <a href="https://drive.google.com/file/d/1p9nduiymK9jUh7WfwlsMjBfW8RoNe_61/view?usp=sharing">PDF</a>) /
+              <a href="https://github.com/poolio/bilateral_solver">code</a> /
+              <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmaDI3bm5VeDRxams/view?usp=sharing">depth super-res results</a> /
+              <a href="http://127.0.0.1:5500/data/BarronPooleECCV2016_reviews.txt">reviews</a>
+              <p></p>
+              <p>Our solver smooths things better than other filters and faster than other optimization algorithms, and you can backprop through it.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="diverdi_stop()" onmouseover="diverdi_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="diverdi_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/diverdi_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/diverdi_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function diverdi_start() {
+                  document.getElementById('diverdi_image').style.opacity = "1";
+                }
+
+                function diverdi_stop() {
+                  document.getElementById('diverdi_image').style.opacity = "0";
+                }
+                diverdi_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1mmT-LuK_eBZsl3qp4-fAshEPdgfbgvNE/view?usp=sharing">
+                <papertitle>Geometric Calibration for Mobile, Stereo, Autofocus Cameras</papertitle>
+              </a>
+              <br>
+              <a href="http://www.stephendiverdi.com/">Stephen DiVerdi</a>,
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>WACV</em>, 2016
+              <br>
+              <a href="http://127.0.0.1:5500/data/Diverdi2016.bib">bibtex</a>
+              <p></p>
+              <p>Standard techniques for stereo calibration don't work for cheap mobile cameras.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="dt_stop()" onmouseover="dt_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="dt_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/DT_edge.jpg"></div>
+                <img src="./Santhosh Subramanian_files/DT_image.jpg">
+              </div>
+              <script type="text/javascript">
+                function dt_start() {
+                  document.getElementById('dt_image').style.opacity = "1";
+                }
+
+                function dt_stop() {
+                  document.getElementById('dt_image').style.opacity = "0";
+                }
+                dt_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/178Xj2PZ1w6hZJpucU-TiZOoCemJmvsVQ/view?usp=sharing">
+                <papertitle>Semantic Image Segmentation with Task-Specific Edge Detection Using CNNs and a Discriminatively Trained Domain Transform</papertitle>
+              </a>
+              <br>
+              <em>CVPR</em>, 2016
+              <br>
+              <a href="http://liangchiehchen.com/">Liang-Chieh Chen</a>, <strong>Jonathan T. Barron</strong>, <a href="http://ttic.uchicago.edu/~gpapan/">George Papandreou</a>, <a href="http://www.cs.ubc.ca/~murphyk/">Kevin Murphy</a>, <a href="http://www.stat.ucla.edu/~yuille/">Alan L. Yuille</a>
+              <br>
+              <a href="http://127.0.0.1:5500/data/Chen2016.bib">bibtex</a> /
+              <a href="http://liangchiehchen.com/projects/DeepLab.html">project page</a> /
+              <a href="https://bitbucket.org/aquariusjay/deeplab-public-ver2">code</a>
+              <p></p>
+              <p>By integrating an edge-aware filter into a convolutional neural network we can learn an edge-detector while improving semantic segmentation.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="ccc_stop()" onmouseover="ccc_start()" bgcolor="#ffffd0">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="ccc_image" style="opacity: 0;"><img src="./Santhosh Subramanian_files/ccc_after.jpg"></div>
+                <img src="./Santhosh Subramanian_files/ccc_before.jpg">
+              </div>
+              <script type="text/javascript">
+                function ccc_start() {
+                  document.getElementById('ccc_image').style.opacity = "1";
+                }
+
+                function ccc_stop() {
+                  document.getElementById('ccc_image').style.opacity = "0";
+                }
+                ccc_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1id74VNDL8ACrrWf6vYgN2M4kS8gd4n7w/view?usp=sharing">
+                <papertitle>Convolutional Color Constancy</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>
+              <br>
+              <em>ICCV</em>, 2015
+              <br>
+              <a href="https://drive.google.com/file/d/1vO3sVOMihmpNqsuASeR46Y_iME0lOANR/view?usp=sharing">supplement</a> / <a href="http://127.0.0.1:5500/data/BarronICCV2015.bib">bibtex</a> / <a href="https://youtu.be/saHwKY9rfx0">video</a> (or <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmalBNUzlENUJSVDg/view?usp=sharing">mp4</a>)
+              <p></p>
+              <p>By framing white balance as a chroma localization task we can discriminatively learn a color constancy model that beats the state-of-the-art by 40%.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src="./Santhosh Subramanian_files/Shelhamer2015.jpg">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1stygV71uBruD7Ck9CaAQr7nREvr3DtUL/view?usp=sharing">
+                <papertitle>Scene Intrinsics and Depth from a Single Image</papertitle>
+              </a>
+              <br>
+              <a href="http://imaginarynumber.net/">Evan Shelhamer</a>, <strong>Jonathan T. Barron</strong>, <a href="http://www.eecs.berkeley.edu/~trevor/">Trevor Darrell</a>
+              <br>
+              <em>ICCV Workshop</em>, 2015
+              <br>
+              <a href="http://127.0.0.1:5500/data/Shelhamer2015.bib">bibtex</a>
+              <p></p>
+              <p>The monocular depth estimates produced by fully convolutional networks can be used to inform intrinsic image estimation.</p>
+            </td>
+          </tr>
+
+          <tr bgcolor="#ffffd0" onmouseout="defocus_stop()" onmouseover="defocus_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div id="lens_blurry" class="hidden" style="display: none;"><img src="./Santhosh Subramanian_files/BarronCVPR2015_anim.gif"></div>
+              <div id="lens_sharp" style="display: inline;">
+                <a href="./Santhosh Subramanian_files/BarronCVPR2015_anim.gif"><img src="./Santhosh Subramanian_files/BarronCVPR2015_still.jpg"></a>
+              </div>
+              <script type="text/javascript">
+                function defocus_start() {
+                  document.getElementById('lens_blurry').style.display = 'inline';
+                  document.getElementById('lens_sharp').style.display = 'none';
+                }
+
+                function defocus_stop() {
+                  document.getElementById('lens_blurry').style.display = 'none';
+                  document.getElementById('lens_sharp').style.display = 'inline';
+                }
+                defocus_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://drive.google.com/file/d/1R4RdaBZIs-uJobhIFs9yKf3jIsaHQNH0/view?usp=sharing">
+                <papertitle>Fast Bilateral-Space Stereo for Synthetic Defocus</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>, <a href="http://people.csail.mit.edu/abadams/">Andrew Adams</a>, <a href="http://people.csail.mit.edu/yichangshih/">YiChang Shih</a>, <a href="http://carlos-hernandez.org/">Carlos Hernández</a>
+              <br>
+              <em>CVPR</em>, 2015 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <a href="https://drive.google.com/file/d/125qgMdqeT1vojMIijIKcOF099LjUgUOL/view?usp=sharing">abstract</a> /
+              <a href="https://drive.google.com/file/d/1HGGvVOGxmPjvgdK5q3UD1Qb5Nttg6kq9/view?usp=sharing">supplement</a> /
+              <a href="http://127.0.0.1:5500/data/BarronCVPR2015.bib">bibtex</a> /
+              <a href="http://techtalks.tv/talks/fast-bilateral-space-stereo-for-synthetic-defocus/61624/">talk</a> /
+              <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmSzZZdUJSMllSUkE/view?usp=sharing">keynote</a> (or <a href="https://drive.google.com/open?id=0B4nuwEMaEsnmZ1ZXUzBCWDJYeFU">PDF</a>)
+              <p></p>
+              <p>By embedding a stereo optimization problem in "bilateral-space" we can very quickly solve for an edge-aware depth map, letting us render beautiful depth-of-field effects.</p>
+              <p>This technology is used by the <a href="http://googleresearch.blogspot.com/2014/04/lens-blur-in-new-google-camera-app.html">Google Camera "Lens Blur"</a> feature. </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src="./Santhosh Subramanian_files/PABMM2015.jpg" alt="PontTuset" width="160" style="border-style: none">
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://arxiv.org/abs/1503.00848" id="MCG_journal">
+                <papertitle>Multiscale Combinatorial Grouping for Image Segmentation and Object Proposal Generation</papertitle>
+              </a>
+              <br>
+              <a href="http://imatge.upc.edu/web/people/jordi-pont-tuset">Jordi Pont-Tuset</a>, <a href="http://www.cs.berkeley.edu/~arbelaez/">Pablo Arbeláez</a>, <strong>Jonathan T. Barron</strong>, <a href="http://imatge.upc.edu/web/ferran">Ferran Marqués</a>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <br>
+              <em>TPAMI</em>, 2017
+              <br>
+              <a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/mcg/">project page</a> /
+              <a href="http://127.0.0.1:5500/data/PontTusetTPAMI2017.bib">bibtex</a> /
+              <a href="https://drive.google.com/file/d/1AiB78Fy7QVA3KqgcooyzMAC5L8HhNzjz/view?usp=sharing">fast eigenvector code</a>
+              <p></p>
+              <p>We produce state-of-the-art contours, regions and object candidates, and we compute normalized-cuts eigenvectors 20× faster.</p>
+              <p>This paper subsumes our CVPR 2014 paper.</p>
+            </td>
+          </tr>
+
+          <tr bgcolor="#ffffd0" onmouseout="sirfs_stop()" onmouseover="sirfs_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id="sirfs_image" style="opacity: 0;">
+                  <a href="http://127.0.0.1:5500/images/Estee.png"><img src="./Santhosh Subramanian_files/Estee_160.png" style="border-style: none"></a>
+                </div>
+                <a href="http://127.0.0.1:5500/images/Estee.png"><img src="./Santhosh Subramanian_files/Estee_160_prodB2.png" style="border-style: none"></a>
+              </div>
+              <script type="text/javascript">
+                function sirfs_start() {
+                  document.getElementById('sirfs_image').style.opacity = "1";
+                }
+
+                function sirfs_stop() {
+                  document.getElementById('sirfs_image').style.opacity = "0";
+                }
+                sirfs_stop()
+              </script>
+            </td>
+            <td width="75%" valign="middle">
+              <p>
+                <a href="https://arxiv.org/abs/2010.03592" id="SIRFS">
+                  <papertitle>Shape, Illumination, and Reflectance from Shading</papertitle>
+                </a>
+                <br>
+                <strong>Jonathan T. Barron</strong>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+                <br>
+                <em>TPAMI</em>, 2015
+                <br>
+                <a href="http://127.0.0.1:5500/data/BarronMalikTPAMI2015.bib">bibtex</a> / <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmVWpfa19mbUxIYW8/view?usp=sharing">keynote</a> (or <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmazJvLXJUb0NuM1U/view?usp=sharing">powerpoint</a>, <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmTDBUWE96VHJndjg/view?usp=sharing">PDF</a>) / <a href="http://www.youtube.com/watch?v=NnePYprvFvA">video</a> / <a href="https://drive.google.com/file/d/1vg9Rb-kBntSTnTCzVgFlskkPXvTB_5aq/view?usp=sharing">code &amp; data</a> / <a href="https://drive.google.com/file/d/11X5Zfjy7Q7oP_V2rtqy2f5-x9YgQUAFd/view?usp=sharing">kudos</a>
+              </p>
+              <p>
+                We present <strong>SIRFS</strong>, which can estimate shape, chromatic illumination, reflectance, and shading from a single image of an masked object.
+              </p>
+              <p>
+                This paper subsumes our CVPR 2011, CVPR 2012, and ECCV 2012 papers.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src="./Santhosh Subramanian_files/ArbalaezCVPR2014.jpg" alt="ArbalaezCVPR2014" width="160" height="120" style="border-style: none">
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/1M0wijHY134F9ETBgO8mjeuKUSblTRLG0/view?usp=sharing">
+                <papertitle>Multiscale Combinatorial Grouping</papertitle>
+              </a>
+              <br>
+              <a href="http://www.cs.berkeley.edu/~arbelaez/">Pablo Arbeláez</a>, <a href="http://imatge.upc.edu/web/people/jordi-pont-tuset">Jordi Pont-Tuset</a>, <strong>Jonathan T. Barron</strong>, <a href="http://imatge.upc.edu/web/ferran">Ferran Marqués</a>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <br>
+              <em>CVPR</em>, 2014
+              <br>
+              <a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/mcg/">project page</a> /
+              <a href="http://127.0.0.1:5500/data/ArbelaezCVPR2014.bib">bibtex</a>
+              <p>This paper is subsumed by <a href="http://127.0.0.1:5500/index.html#MCG_journal">our journal paper</a>.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="flyspin_stop()" onmouseover="flyspin_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div id="flyspin" class="hidden" style="display: none;"><img src="./Santhosh Subramanian_files/BarronICCV2013_160.gif"></div>
+              <div id="flystill" style="display: inline;">
+                <a href="http://127.0.0.1:5500/images/BarronICCV2013.gif"><img src="./Santhosh Subramanian_files/BarronICCV2013_160.jpg"></a>
+              </div>
+              <script type="text/javascript">
+                function flyspin_start() {
+                  document.getElementById('flyspin').style.display = 'inline';
+                  document.getElementById('flystill').style.display = 'none';
+                }
+
+                function flyspin_stop() {
+                  document.getElementById('flyspin').style.display = 'none';
+                  document.getElementById('flystill').style.display = 'inline';
+                }
+                flyspin_stop()
+              </script>
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/1shvItvx_8Sb8QNXhrOXkuRmx2618iwNJ/view?usp=sharing">
+                <papertitle>Volumetric Semantic Segmentation using Pyramid Context Features</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>, <a href="http://www.cs.berkeley.edu/~arbelaez/">Pablo Arbeláez</a>, <a href="http://big.lbl.gov/">Soile V. E. Keränen</a>, <a href="http://www.lbl.gov/gsd/biggin.html">Mark D. Biggin</a>,
+              <br> <a href="http://dwknowles.lbl.gov/">David W. Knowles</a>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <br>
+              <em>ICCV</em>, 2013
+              <br>
+              <a href="https://drive.google.com/file/d/1htiLpMAcYLtuBthmAb4XHnOYxUbkfnqR/view?usp=sharing">supplement</a> /
+              <a href="https://drive.google.com/file/d/1qoYeFNa443myn2SfcdhmCsYBqE9xQrPD/view?usp=sharing">poster</a> /
+              <a href="http://127.0.0.1:5500/data/BarronICCV2013.bib">bibtex</a> / <a href="http://www.youtube.com/watch?v=Y56-FcfnlVA&amp;hd=1">video 1</a> (or <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmZ1ZLaHdQYzAxNlU/view?usp=sharing">mp4</a>) / <a href="http://www.youtube.com/watch?v=mvRoYuP6-l4&amp;hd=1">video 2</a> (or <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmZ1ZLaHdQYzAxNlU/view?usp=sharing">mp4</a>) / <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmSF9YdWJjQmh4QW8/view?usp=sharing">code &amp; data</a>
+              <p>
+                We present a technique for efficient per-voxel linear classification, which enables accurate and fast semantic segmentation of volumetric Drosophila imagery.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src="./Santhosh Subramanian_files/3DSP_160.jpg" alt="3DSP" width="160" height="120" style="border-style: none">
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmbG1tOGIta3N1Wjg/view?usp=sharing" id="3DSP">
+                <papertitle>3D Self-Portraits</papertitle>
+              </a>
+              <br>
+              <a href="http://www.hao-li.com/">Hao Li</a>, <a href="http://www.evouga.com/">Etienne Vouga</a>, Anton Gudym, <a href="http://www.cs.princeton.edu/~linjiel/">Linjie Luo</a>, <strong>Jonathan T. Barron</strong>, Gleb Gusev
+              <br>
+              <em>SIGGRAPH Asia</em>, 2013
+              <br>
+              <a href="http://www.youtube.com/watch?v=DmUkbZ0QMCA">video</a> / <a href="http://shapify.me/">shapify.me</a> / <a href="http://127.0.0.1:5500/data/3DSP_siggraphAsia2013.bib">bibtex</a>
+              <p>Our system allows users to create textured 3D models of themselves in arbitrary poses using only a single 3D sensor.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="rgbd_stop()" onmouseover="rgbd_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div id="rgbd_anim" class="hidden" style="display: none;"><img src="./Santhosh Subramanian_files/SceneSIRFS.gif"></div>
+              <div id="rgbd_still" style="display: inline;"><img src="./Santhosh Subramanian_files/SceneSIRFS-still.jpg"></div>
+              <script type="text/javascript">
+                function rgbd_start() {
+                  document.getElementById('rgbd_anim').style.display = 'inline';
+                  document.getElementById('rgbd_still').style.display = 'none';
+                }
+
+                function rgbd_stop() {
+                  document.getElementById('rgbd_anim').style.display = 'none';
+                  document.getElementById('rgbd_still').style.display = 'inline';
+                }
+                rgbd_stop()
+              </script>
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/1snypSLhzC0jXCchJRsWpcDZ7Es5hDmXo/view?usp=sharing">
+                <papertitle>Intrinsic Scene Properties from a Single RGB-D Image</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <br>
+              <em>CVPR</em>, 2013 &nbsp; <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <a href="https://drive.google.com/file/d/1cLUw72WpgdZ_3TQAjJABdgywqjBfn_Mq/view?usp=sharing">supplement</a> / <a href="http://127.0.0.1:5500/data/BarronMalikCVPR2013.bib">bibtex</a> / <a href="http://techtalks.tv/talks/intrinsic-scene-properties-from-a-single-rgb-d-image/58614/">talk</a> / <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmWW1CZGJPbi12R0k/view?usp=sharing">keynote</a> (or <a href="https://drive.google.com/file/d/19q3EFf6GIb4UFcCN2DVU2jVKpxRj5kxf/view?usp=sharing">powerpoint</a>, <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmMzQ4ZVp1SWdnVkk/view?usp=sharing">PDF</a>) / <a href="https://drive.google.com/open?id=1ZbPScVA6Efqd-ESvojl92sw8K-82Xxry">code &amp; data</a>
+              <p>By embedding mixtures of shapes &amp; lights into a soft segmentation of an image, and by leveraging the output of the Kinect, we can extend SIRFS to scenes.
+                <br>
+                <br>TPAMI Journal version: <a href="https://drive.google.com/file/d/1iQiUxZvjPPnb8rFCwXYesTgFSRk7mkAq/view?usp=sharing">version</a> / <a href="http://127.0.0.1:5500/data/BarronMalikTPAMI2015B.bib">bibtex</a>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src="./Santhosh Subramanian_files/Boundary.jpg" alt="Boundary_png" style="border-style: none">
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/1H4YPovfrvcce3HGMEhidwU2l2fTcNR5y/view?usp=sharing">
+                <papertitle>Boundary Cues for 3D Object Shape Recovery</papertitle>
+              </a>
+              <br>
+              <a href="http://www.kevinkarsch.com/">Kevin Karsch</a>,
+              <a href="http://web.engr.illinois.edu/~liao17/">Zicheng Liao</a>,
+              <a href="http://web.engr.illinois.edu/~jjrock2/">Jason Rock</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="http://www.cs.illinois.edu/homes/dhoiem/">Derek Hoiem</a>
+              <br>
+              <em>CVPR</em>, 2013
+              <br>
+              <a href="https://drive.google.com/file/d/0B4nuwEMaEsnmLUQ5SVJTcUZIYXc/view?usp=sharing">supplement</a> / <a href="http://127.0.0.1:5500/data/KarschCVPR2013.bib">bibtex</a>
+              <p>Boundary cues (like occlusions and folds) can be used for shape reconstruction, which improves object recognition for humans and computers.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="eccv12_stop()" onmouseover="eccv12_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div id="eccv12_anim" class="hidden" style="display: none;">
+                <a href="https://drive.google.com/file/d/1brxb58CfRPe7KEER4Q_fYS9B_J-hiS0t/view?usp=sharing"><img src="./Santhosh Subramanian_files/ECCV2012_small.gif"></a>
+              </div>
+              <div id="eccv12_still" style="display: inline;"><img src="./Santhosh Subramanian_files/ECCV2012_still.jpg"></div>
+              <script type="text/javascript">
+                function eccv12_start() {
+                  document.getElementById('eccv12_anim').style.display = 'inline';
+                  document.getElementById('eccv12_still').style.display = 'none';
+                }
+
+                function eccv12_stop() {
+                  document.getElementById('eccv12_anim').style.display = 'none';
+                  document.getElementById('eccv12_still').style.display = 'inline';
+                }
+                eccv12_stop()
+              </script>
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/1NczR4pJ-s0YBjCe0rCevMt8IM5JPuUrc/view?usp=sharing">
+                <papertitle>Color Constancy, Intrinsic Images, and Shape Estimation</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <br>
+              <em>ECCV</em>, 2012
+              <br>
+              <a href="https://drive.google.com/file/d/1zuxhWZ3i6THvuRRBeE7dM_BJfDxO72Fq/view?usp=sharing">supplement</a> /
+              <a href="http://127.0.0.1:5500/data/BarronMalikECCV2012.bib">bibtex</a> /
+              <a href="https://drive.google.com/file/d/12x8mhqpFsA6p0u6ZQW-ieRKF8hlQBKKe/view?usp=sharing">poster</a> /
+              <a href="http://www.youtube.com/watch?v=NnePYprvFvA">video</a>
+              <p>This paper is subsumed by <a href="http://127.0.0.1:5500/index.html#SIRFS">SIRFS</a>.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="cvpr12_stop()" onmouseover="cvpr12_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one" style="height: 120px">
+                <div class="two" id="cvpr12_image" style="height: 120px; opacity: 0;">
+                  <img src="./Santhosh Subramanian_files/BarronCVPR2012_after.jpg" style="border-style: none">
+                </div>
+                <img src="./Santhosh Subramanian_files/BarronCVPR2012_before.jpg" style="border-style: none">
+              </div>
+              <script type="text/javascript">
+                function cvpr12_start() {
+                  document.getElementById('cvpr12_image').style.opacity = "1";
+                }
+
+                function cvpr12_stop() {
+                  document.getElementById('cvpr12_image').style.opacity = "0";
+                }
+                cvpr12_stop()
+              </script>
+            </td>
+            <td width="75%" valign="middle">
+              <a href="https://drive.google.com/file/d/17RfINbE2dr2EjXp9MtGO0MHJLQmQVhvT/view?usp=sharing">
+                <papertitle>Shape, Albedo, and Illumination from a Single Image of an Unknown Object</papertitle>
+              </a>
+              <br>
+              <strong>Jonathan T. Barron</strong>, <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <br>
+              <em>CVPR</em>, 2012
+              <br>
+              <a href="https://drive.google.com/file/d/1Im_bUI42AP9VPoNtsjLajvtLRiwv39k3/view?usp=sharing">supplement</a> /
+              <a href="http://127.0.0.1:5500/data/BarronMalikCVPR2012.bib">bibtex</a> /
+              <a href="https://drive.google.com/file/d/1IAlSF4k3_CEL9dfbaMiNTFPBoEkLhsRl/view?usp=sharing">poster</a>
+              <p>This paper is subsumed by <a href="http://127.0.0.1:5500/index.html#SIRFS">SIRFS</a>.</p>
+            </td>
+          </tr>
+
+
+        </tbody></table>
+
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
+          <tr>
+            <td>
+              <heading>Service</heading>
+            </td>
+          </tr>
+        </tbody></table>
+        <table width="100%" align="center" border="0" cellpadding="20"><tbody>
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle"><img src="./Santhosh Subramanian_files/cvf.jpg"></td>
+            <td width="75%" valign="center">
+              <a href="http://cvpr2021.thecvf.com/area-chairs">Area Chair, CVPR 2021</a>
+              <br><br>
+              <a href="http://cvpr2019.thecvf.com/area_chairs">Area Chair, CVPR 2019</a>
+              <br><br>
+              <a href="http://cvpr2018.thecvf.com/organizers/area_chairs">Area Chair, CVPR 2018</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src="./Santhosh Subramanian_files/cs188.jpg" alt="cs188">
+            </td>
+            <td width="75%" valign="center">
+              <a href="http://inst.eecs.berkeley.edu/~cs188/sp11/announcements.html">Graduate Student Instructor, CS188 Spring 2011</a>
+              <br>
+              <br>
+              <a href="http://inst.eecs.berkeley.edu/~cs188/fa10/announcements.html">Graduate Student Instructor, CS188 Fall 2010</a>
+              <br>
+              <br>
+              <a href="http://aima.cs.berkeley.edu/">Figures, "Artificial Intelligence: A Modern Approach", 3rd Edition</a>
+            </td>
+          </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr>
+            <td style="padding:0px">
+              <br>
+              <p style="text-align:right;font-size:small;">
+                Feel free to steal this website's <a href="https://github.com/jonbarron/jonbarron_website">source code</a>,
+                just add a link back to my website.
+                <strong>Do not</strong> scrape the HTML from the deployed instance of this website at http://jonbarron.info,
+                as it includes analytics tags that you do not want on your own website — use the github code instead.
+                If you'd like your new page linked to from here, submit a pull request adding yourself.
+                <a href="https://www.cs.ubc.ca/~pbateni/">✩</a>
+                <a href="https://aliosmanulusoy.github.io/">✩</a>
+                <a href="https://cs.stanford.edu/~poole/">✩</a>
+                <a href="http://www.cs.berkeley.edu/~akar/">✩</a>
+                <a href="http://www.eecs.berkeley.edu/~biancolin">✩</a>
+                <a href="http://www.rossgirshick.info/">✩</a>
+                <a href="http://www.cs.cmu.edu/~igkioule/">✩</a>
+                <a href="http://kelvinxu.github.io/">✩</a>
+                <a href="http://imagine.enpc.fr/~groueixt/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~cbfinn/">✩</a>
+                <a href="http://disi.unitn.it/~nabi/">✩</a>
+                <a href="http://changyeobshin.com/">✩</a>
+                <a href="https://mbanani.github.io/">✩</a>
+                <a href="https://aseembits93.github.io/">✩</a>
+                <a href="http://fuwei.us/">✩</a>
+                <a href="http://www-bcf.usc.edu/~iacopoma/">✩</a>
+                <a href="https://lorisbaz.github.io/">✩</a>
+                <a href="https://dplarson.info/">✩</a>
+                <a href="http://chapiro.net/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~vitchyr/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~kellman/">✩</a>
+                <a href="http://www0.cs.ucl.ac.uk/staff/C.Godard/">✩</a>
+                <a href="http://www.cs.toronto.edu/~byang/">✩</a>
+                <a href="http://people.kyb.tuebingen.mpg.de/harmeling/">✩</a>
+                <a href="https://prakashmurali.bitbucket.io/">✩</a>
+                <a href="http://www.cs.bham.ac.uk/~exa371/">✩</a>
+                <a href="http://prosello.com/">✩</a>
+                <a href="http://www.ee.ucr.edu/~nmithun/">✩</a>
+                <a href="https://rmullapudi.bitbucket.io/">✩</a>
+                <a href="http://www.briangauch.com/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~coline/">✩</a>
+                <a href="https://www.andrew.cmu.edu/user/sjayasur/website.html">✩</a>
+                <a href="http://www.eecs.berkeley.edu/~rakelly/">✩</a>
+                <a href="https://gkioxari.github.io/">✩</a>
+                <a href="http://ai.stanford.edu/~hsong/">✩</a>
+                <a href="http://www.ee.ucr.edu/~mbappy/">✩</a>
+                <a href="http://adithyamurali.com/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~khoury/">✩</a>
+                <a href="https://prashanthtk.github.io/">✩</a>
+                <a href="http://tomhenighan.com/">✩</a>
+                <a href="http://mbchang.github.io/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~haarnoja/">✩</a>
+                <a href="http://web.stanford.edu/~sfort1/">✩</a>
+                <a href="http://www.arkin.xyz/">✩</a>
+                <a href="http://i-am-karan-singh.github.io/">✩</a>
+                <a href="https://pxlong.github.io/">✩</a>
+                <a href="https://dheeraj2444.github.io/">✩</a>
+                <a href="https://fabienbaradel.github.io/">✩</a>
+                <a href="https://ankitdhall.github.io/">✩</a>
+                <a href="http://nafiz.ml/">✩</a>
+                <a href="http://www.cs.cmu.edu/~aayushb">✩</a>
+                <a href="http://bjornstenger.github.io/">✩</a>
+                <a href="http://users.eecs.northwestern.edu/~mif365/">✩</a>
+                <a href="https://www.macs.hw.ac.uk/~ic14/">✩</a>
+                <a href="https://ai.stanford.edu/~kaidicao/">✩</a>
+                <a href="http://hengfan.byethost7.com/">✩</a>
+                <a href="https://reyhaneaskari.github.io/">✩</a>
+                <a href="https://tianheyu927.github.io/">✩</a>
+                <a href="http://people.csail.mit.edu/janner/">✩</a>
+                <a href="http://www.sjoerdvansteenkiste.com/">✩</a>
+                <a href="http://joaoloula.github.io/">✩</a>
+                <a href="https://bhairavmehta95.github.io/">✩</a>
+                <a href="https://palmieri.github.io/">✩</a>
+                <a href="https://psuriana.github.io/">✩</a>
+                <a href="http://yushi2.web.engr.illinois.edu/">✩</a>
+                <a href="http://ruthcfong.github.io/">✩</a>
+                <a href="https://shraman-rc.github.io/">✩</a>
+                <a href="http://rahulgarg.com/">✩</a>
+                <a href="http://www.cs.cmu.edu/~inigam/">✩</a>
+                <a href="http://djstrouse.com/">✩</a>
+                <a href="https://lekhamohan.github.io/">✩</a>
+                <a href="https://avijit9.github.io/">✩</a>
+                <a href="http://www.seas.ucla.edu/~sahba/">✩</a>
+                <a href="https://pages.jh.edu/~falambe1/">✩</a>
+                <a href="http://www.dcc.fc.up.pt/~vitor.cerqueira/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~bmild/">✩</a>
+                <a href="https://web.eecs.umich.edu/~subh/">✩</a>
+                <a href="http://www.cs.utexas.edu/~pgoyal/">✩</a>
+                <a href="http://www.eecs.wsu.edu/~fchowdhu/">✩</a>
+                <a href="https://aarzchan.github.io/">✩</a>
+                <a href="https://www.seas.upenn.edu/~oleh/">✩</a>
+                <a href="http://shamak.github.io/">✩</a>
+                <a href="http://jianfeng.us/">✩</a>
+                <a href="https://pulkitkumar95.github.io/">✩</a>
+                <a href="https://epiception.github.io/">✩</a>
+                <a href="https://weimengpu.github.io/">✩</a>
+                <a href="http://users.ices.utexas.edu/~faraz/">✩</a>
+                <a href="https://vitorgodeiro.github.io/">✩</a>
+                <a href="http://cgm.technion.ac.il/people/Roey/">✩</a>
+                <a href="https://mancinimassimiliano.github.io/">✩</a>
+                <a href="https://roshanjrajan.me/">✩</a>
+                <a href="http://irc.cs.sdu.edu.cn/~qingnan/">✩</a>
+                <a href="http://individual.utoronto.ca/yuenj/">✩</a>
+                <a href="https://akhileshgotmare.github.io/">✩</a>
+                <a href="http://vllab.ucmerced.edu/nakul/">✩</a>
+                <a href="https://hasibzunair.github.io/">✩</a>
+                <a href="http://dalezhou.com/">✩</a>
+                <a href="https://abhoi.github.io/">✩</a>
+                <a href="https://www.cse.unr.edu/~jyi/">✩</a>
+                <a href="http://www.liuzhaolun.com/">✩</a>
+                <a href="https://abhisheknaik.me/">✩</a>
+                <a href="https://cfernandezlab.github.io/">✩</a>
+                <a href="https://aasharma90.github.io/">✩</a>
+                <a href="https://kdizon.github.io/">✩</a>
+                <a href="https://www.cse.wustl.edu/~zhihao.xia/">✩</a>
+                <a href="http://mmozes.net/">✩</a>
+                <a href="https://kpertsch.github.io/">✩</a>
+                <a href="http://xiatianpei.com/">✩</a>
+                <a href="https://nsrishankar.github.io/">✩</a>
+                <a href="http://xujuefei.com/">✩</a>
+                <a href="https://www.cs.rochester.edu/u/lchen63/">✩</a>
+                <a href="http://deyachatterjee.github.io/">✩</a>
+                <a href="http://hossein1387.github.io/index.html">✩</a>
+                <a href="https://zx007zls.github.io/">✩</a>
+                <a href="http://people.eecs.berkeley.edu/~nol/">✩</a>
+                <a href="http://www.cs.princeton.edu/~jw60/">✩</a>
+                <a href="https://cseweb.ucsd.edu/~owen/">✩</a>
+                <a href="https://subhajitchaudhury.github.io/">✩</a>
+                <a href="https://sandarshp.github.io/">✩</a>
+                <a href="https://medhini.github.io/">✩</a>
+                <a href="http://cindyxinyiwang.github.io/">✩</a>
+                <a href="https://lasirenashann.github.io/">✩</a>
+                <a href="http://ambuj.se/">✩</a>
+                <a href="http://kylehsu.me/">✩</a>
+                <a href="https://ujjwal95.github.io/">✩</a>
+                <a href="https://aditya5558.github.io/">✩</a>
+                <a href="http://www.majumderb.com/">✩</a>
+                <a href="http://ylqiao.net/">✩</a>
+                <a href="https://xiaochunliu.github.io/">✩</a>
+                <a href="https://dhawgupta.github.io/">✩</a>
+                <a href="http://cliu.info/">✩</a>
+                <a href="https://taochenshh.github.io/">✩</a>
+                <a href="http://www-scf.usc.edu/~ayushj/">✩</a>
+                <a href="https://zexuehe.github.io/">✩</a>
+                <a href="https://ofkar.github.io/">✩</a>
+                <a href="https://amir-arsalan.github.io/">✩</a>
+                <a href="https://vinamrabenara.github.io/">✩</a>
+                <a href="https://likojack.bitbucket.io/">✩</a>
+                <a href="http://www-personal.umich.edu/~zeyu/">✩</a>
+                <a href="https://utkarshojha.github.io/">✩</a>
+                <a href="https://fahmidmorshed.github.io/">✩</a>
+                <a href="https://www.cs.ubc.ca/~setarehc/">✩</a>
+                <a href="http://viveksolanki.com/">✩</a>
+                <a href="http://webdiis.unizar.es/~alcolea/">✩</a>
+                <a href="http://www.songyaojiang.com/">✩</a>
+                <a href="https://www.csee.umbc.edu/~bhp1/">✩</a>
+                <a href="http://acl.mit.edu/people">✩</a>
+                <a href="https://vignanv.com/">✩</a>
+                <a href="https://liuyicun.me/">✩</a>
+                <a href="https://heyuanmingong.github.io/">✩</a>
+                <a href="https://abhishekaich27.github.io/">✩</a>
+                <a href="https://www.cs.ubc.ca/~saeidnp/">✩</a>
+                <a href="https://uuujf.github.io/">✩</a>
+                <a href="https://csjcai.github.io/">✩</a>
+                <a href="https://iphyer.github.io/Mingren_Website/">✩</a>
+                <a href="https://binzhubz.github.io/">✩</a>
+                <a href="https://steinar.dev/">✩</a>
+                <a href="https://tnq177.github.io/">✩</a>
+                <a href="https://jonathan-schwarz.github.io/">✩</a>
+                <a href="http://www.ronnieclark.co.uk/">✩</a>
+                <a href="http://www.aparnadhinakaran.com/">✩</a>
+                <a href="https://zjysteven.github.io/">✩</a>
+                <a href="http://aakash30jan.github.io/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~shelhamer/">✩</a>
+                <a href="https://junaidcs032.github.io/">✩</a>
+                <a href="https://liangxuy.github.io/">✩</a>
+                <a href="http://www.public.asu.edu/~ssarka18/">✩</a>
+                <a href="https://www.cs.toronto.edu/~jennachoi/">✩</a>
+                <a href="https://amankhullar.github.io/">✩</a>
+                <a href="https://vijayvee.github.io/">✩</a>
+                <a href="https://anmolgoel.dev/">✩</a>
+                <a href="https://chanh.ee/">✩</a>
+                <a href="https://jefflai108.github.io/">✩</a>
+                <a href="https://pvskand.github.io/">✩</a>
+                <a href="https://ariostgx.github.io/website/">✩</a>
+                <a href="https://www.cs.utexas.edu/~shreyd/">✩</a>
+                <a href="https://www.cedrick.ai/">✩</a>
+                <a href="https://onlytailei.github.io/">✩</a>
+                <a href="https://people.cs.vt.edu/liminyang/">✩</a>
+                <a href="https://alexander-kirillov.github.io/">✩</a>
+                <a href="https://sites.cs.ucsb.edu/~yanju/">✩</a>
+                <a href="https://www.cct.lsu.edu/~cliu/">✩</a>
+                <a href="https://sid2697.github.io/">✩</a>
+                <a href="https://brendonjeromebutler.com/">✩</a>
+                <a href="https://bthananjeyan.github.io/">✩</a>
+                <a href="https://leonidk.com/">✩</a>
+                <a href="http://bopeng.space/">✩</a>
+                <a href="https://gautamigolani.github.io/">✩</a>
+                <a href="https://rohitrango.github.io/">✩</a>
+                <a href="https://prithv1.github.io/">✩</a>
+                <a href="https://www.idiap.ch/~tpereira/">✩</a>
+                <a href="https://felipefelixarias.github.io/">✩</a>
+                <a href="https://sophieschau.github.io/">✩</a>
+                <a href="https://wensun.github.io/">✩</a>
+                <a href="http://cs.umanitoba.ca/~kumarkm/">✩</a>
+                <a href="https://sourav-roni.github.io/">✩</a>
+                <a href="https://parskatt.github.io/">✩</a>
+                <a href="https://rauldiaz.github.io/">✩</a>
+                <a href="https://uzeful.github.io/">✩</a>
+                <a href="https://roeiherz.github.io/">✩</a>
+                <a href="http://relh.net/">✩</a>
+                <a href="https://ars-ashuha.ru/">✩</a>
+                <a href="https://prieuredesion.github.io/">✩</a>
+                <a href="https://tsujuifu.github.io/">✩</a>
+                <a href="https://pranoy-k.github.io/website/">✩</a>
+                <a href="https://xiaoleiz.github.io/">✩</a>
+                <a href="https://users.ece.cmu.edu/~bahn/">✩</a>
+                <a href="http://eracah.github.io/">✩</a>
+                <a href="https://adityakusupati.github.io/">✩</a>
+                <a href="https://agadetsky.github.io/">✩</a>
+                <a href="https://coh1211.github.io/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~kevinlin/">✩</a>
+                <a href="https://bucherb.github.io/">✩</a>
+                <a href="https://naman-ntc.github.io/">✩</a>
+                <a href="https://nicolay-r.github.io/">✩</a>
+                <a href="https://sakshambassi.github.io/">✩</a>
+                <a href="https://maheshmohanmr.github.io/publications/">✩</a>
+                <a href="http://byang.org/">✩</a>
+                <a href="https://sylqiu.github.io/">✩</a>
+                <a href="https://www.cc.gatech.edu/~sfoley30/">✩</a>
+                <a href="https://crockwell.github.io/">✩</a>
+                <a href="https://kritikalcoder.github.io/">✩</a>
+                <a href="https://isrugeek.github.io/">✩</a>
+                <a href="https://wei-ying.net/">✩</a>
+                <a href="http://people.csail.mit.edu/liuyingcheng/">✩</a>
+                <a href="https://itsreddy.github.io/">✩</a>
+                <a href="https://aditimavalankar.github.io/">✩</a>
+                <a href="https://www.cs.ubc.ca/~zhenanf/">✩</a>
+                <a href="https://trinkle23897.github.io/cv/">✩</a>
+                <a href="https://tgangwani.github.io/">✩</a>
+                <a href="https://hannahlawrence.github.io/">✩</a>
+                <a href="http://bingxu.tech/">✩</a>
+                <a href="http://apjacob.me/">✩</a>
+                <a href="https://www.ee.iitb.ac.in/student/~krishnasubramani/">✩</a>
+                <a href="https://gowthamkuntumalla.github.io/">✩</a>
+                <a href="https://dkkim93.github.io/">✩</a>
+                <a href="https://chaitanyamalaviya.github.io/">✩</a>
+                <a href="https://daochenw.github.io/">✩</a>
+                <a href="https://acvictor.github.io/">✩</a>
+                <a href="https://tarund1996.github.io/">✩</a>
+                <a href="http://www-personal.umich.edu/~belz/">✩</a>
+                <a href="http://lauredelisle.com/">✩</a>
+                <a href="https://tsly123.github.io/">✩</a>
+                <a href="https://vanditg.github.io/">✩</a>
+                <a href="https://nhoma.github.io/">✩</a>
+                <a href="http://www.pedro.opinheiro.com/">✩</a>
+                <a href="https://suvan.sh/">✩</a>
+                <a href="https://www.diptanu.com/">✩</a>
+                <a href="https://yimengli46.github.io/">✩</a>
+                <a href="https://gauravparmar.com/">✩</a>
+                <a href="https://cchoquette.github.io/">✩</a>
+                <a href="https://psyche-mia.github.io/">✩</a>
+                <a href="https://mvp18.github.io/">✩</a>
+                <a href="https://markfzp.github.io/">✩</a>
+                <a href="https://theultramarine19.github.io/">✩</a>
+                <a href="https://sairajk.github.io/">✩</a>
+                <a href="https://paritoshparmar.github.io/">✩</a>
+                <a href="https://purvak-l.github.io/">✩</a>
+                <a href="https://davideabati.info/">✩</a>
+                <a href="https://ethanperez.net/">✩</a>
+                <a href="http://mdai.me/">✩</a>
+                <a href="https://nitish-nagesh.github.io/">✩</a>
+                <a href="https://duroz.github.io/">✩</a>
+                <a href="http://people.uncw.edu/dogang/">✩</a>
+                <a href="http://hal9000.space/">✩</a>
+                <a href="http://web.stanford.edu/~yjiang05/">✩</a>
+                <a href="https://people.eecs.berkeley.edu/~pratul/">✩</a>
+                <a href="http://linuxdeveloper.io/">✩</a>
+                <a href="http://umiacs.umd.edu/~kdbrant">✩</a>
+                <a href="https://adityassrana.github.io/blog/about">✩</a>
+                <a href="https://mpalrocks.github.io/">✩</a>
+                <a href="https://victor7246.github.io/">✩</a>
+                <a href="https://www.haozhu-wang.com/">✩</a>
+                <a href="https://rajat499.github.io/">✩</a>
+                <a href="https://senya-ashukha.github.io/">✩</a>
+                <a href="https://qiminchen.github.io/">✩</a>
+                <a href="https://mark12ding.github.io/">✩</a>
+                <a href="https://zsb87.github.io/">✩</a>
+                <a href="https://yashbhalgat.github.io/">✩</a>
+                <a href="https://r0cketr1kky.github.io/">✩</a>
+                <a href="https://jaydeepborkar.github.io/">✩</a>
+                <a href="https://lidq92.github.io/">✩</a>
+                <a href="https://statho.github.io/">✩</a>
+                <a href="https://ankit-kaul.github.io/">✩</a>
+                <a href="https://jlidard.github.io/">✩</a>
+                <a href="http://harshpanwar.me/">✩</a>
+                <a href="https://c0ldstudy.github.io/about/">✩</a>
+                <a href="https://pro-vider.github.io/personal-website/">✩</a>
+                <a href="http://avinashpaliwal.com/">✩</a>
+                <a href="https://soham-official.github.io/portfolio/">✩</a>
+                <a href="https://cdmdc.github.io/">✩</a>
+                <a href="http://www.wisdom.weizmann.ac.il/~/assafsho/">✩</a>
+                <a href="https://yotamnitzan.github.io/">✩</a>
+                <a href="https://www.zijianwang.me/">✩</a>
+                <a href="https://people.rit.edu/hv8322/">✩</a>
+                <a href="https://ilyac.info/">✩</a>
+                <a href="https://tamarott.github.io/">✩</a>
+                <a href="https://www.cmlab.csie.ntu.edu.tw/~yulunliu/">✩</a>
+                <br>
+                Also, consider using <a href="https://leonidk.com/">Leonid Keselman</a>'s <a href="https://github.com/leonidk/new_website">Jekyll fork</a> of this page.
+              </p>
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<div>
+    <div id="twoseven-ext-tab-media-modal" class="twoseven-ext-tab-media-modal" style="display: none;">
+      <!-- Modal content -->
+      <div class="twoseven-ext-tab-media-modal-content">
+        <div class="iframe-container" style="height: 100%; width: 100%;">
+          <span class="close">×</span>
+        </div>
+      </div>
+    </div></div><div id="fpCE_version" style="display:none">8.5.5</div></body><div id="instok-extension-root"><div><div id="instok-popup-fade" class="content_instok_popup_fade__2J5N9"></div></div></div></html>
